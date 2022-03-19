@@ -22,7 +22,7 @@ const cli = async (): Promise<void> => {
   mkdirs(entity);
 
   // write files
-  let loader = new TwingLoaderFilesystem('./src/templates');
+  let loader = new TwingLoaderFilesystem('./templates');
   let twing = new TwingEnvironment(loader);
 
   // entity
@@ -34,10 +34,10 @@ const cli = async (): Promise<void> => {
     }
   });
   twing
-    .render('entities/index.twig', { Entity: entity, EntityFile: `${entity.toLocaleLowerCase()}.ts` })
+    .render('entities/index.twig', { Entity: entity, EntityFile: `${entity.toLocaleLowerCase()}` })
     .then((output) => {
       try {
-        fs.writeFileSync(`./src/domains/${entity.toLowerCase()}/entities/index`, output);
+        fs.writeFileSync(`./src/domains/${entity.toLowerCase()}/entities/index.ts`, output);
       } catch (err) {
         console.error(err);
       }
