@@ -1,7 +1,10 @@
 {
   "name": "@powerkernel/node-crud-gen",
   "version": "0.1.1",
-  "description": "",
+  "description": "CLI CRUD generator for Power Kernel projects",
+  "publishConfig": {
+    "access": "public"
+  },
   "main": "src/index.js",
   "bin": {
     "node-crud-gen": "src/index.js"
