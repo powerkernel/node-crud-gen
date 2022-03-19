@@ -7,6 +7,7 @@
 import fs from 'fs';
 import { TwingEnvironment, TwingLoaderFilesystem } from 'twing';
 import { mkdirs } from './helper';
+import path from 'path';
 
 const cli = async (): Promise<void> => {
   const args = process.argv.slice(2);
@@ -21,8 +22,8 @@ const cli = async (): Promise<void> => {
   // write dirs
   mkdirs(entity);
 
-  // write files
-  let loader = new TwingLoaderFilesystem('./templates');
+  // template
+  let loader = new TwingLoaderFilesystem(`${__dirname}/../templates`);
   let twing = new TwingEnvironment(loader);
 
   // entity
