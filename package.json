@@ -1,5 +1,5 @@
 {
-  "name": "node-crud-gen",
+  "name": "@powerkernel/node-crud-gen",
   "version": "0.1.0",
   "description": "",
   "main": "src/index.js",
