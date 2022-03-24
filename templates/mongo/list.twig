@@ -1,0 +1,97 @@
+/* npm imports */
+import { injectable } from "inversify";
+import { MongoDbClient } from "@powerkernel/mongodb-client";
+import { Binary, Sort } from "mongodb";
+import config from "config";
+
+/* local imports */
+import { {{EntityDto}}, {{ListEntityDto}} } from "../../domains/{{EntityDir}}/dtos";
+
+/* type imports */
+import type { {{ListEntityRepo}} } from "../../domains/{{EntityDir}}/repositories";
+
+/**
+ * class {{Class}}
+ */
+@injectable()
+class {{Class}} implements {{ListEntityRepo}} {
+  private generateQueryOptions(dto: {{ListEntityDto}}) {
+    // pagination
+    const pageSize = config.get("pageSize") as {
+      default: number;
+      max: number;
+    };
+    const limit = dto.perPage
+      ? dto.perPage > pageSize.max
+        ? pageSize.max
+        : dto.perPage
+      : pageSize.default;
+    const skip = limit * ((dto.page ?? 1) - 1);
+
+    // sort
+    const sort: Sort = {};
+    if (typeof dto.sortField === "string") {
+      const sortField = dto.sortField;
+      const sortOrder = dto.sortOrder ?? "acs";
+      sort[sortField] = sortOrder === "acs" ? 1 : -1;
+    }
+
+    // filter
+    const filter = [];
+    if (dto.filter?.id) {
+      filter.push({
+        _id: MongoDbClient.createUuid(dto.filter.id),
+      });
+    }
+
+    return {
+      limit,
+      skip,
+      filter,
+      sort,
+    };
+  }
+
+  async find(dto: {{ListEntityDto}}): Promise<{{EntityDto}}[] | []> {
+    const db = MongoDbClient.db;
+
+    const { limit, skip, filter, sort } = this.generateQueryOptions(dto);
+
+    // query
+    const data = await db
+      .collection("{{EntityCollection}}")
+      .find(filter.length > 0 ? { $or: filter } : {}, {
+        limit: limit,
+        skip: skip,
+      })
+      .sort(sort)
+      .toArray();
+
+    const dtos: {{EntityDto}}[] = [];
+
+    data.forEach((item) => {
+      dtos.push({
+        id: MongoDbClient.stringifyUuid(item._id as unknown as Binary),
+        createdAt: item.createdAt,
+        updatedAt: item.updatedAt,
+      });
+    });
+
+    return dtos;
+  }
+
+  async count(dto: {{ListEntityDto}}): Promise<number> {
+    const db = MongoDbClient.db;
+
+    const { filter } = this.generateQueryOptions(dto);
+
+    // query
+    const data = await db
+      .collection("{{EntityCollection}}")
+      .countDocuments(filter.length > 0 ? { $or: filter } : {});
+
+    return data;
+  }
+}
+
+export default {{Class}};

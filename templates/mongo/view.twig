@@ -1,0 +1,35 @@
+/* npm imports */
+import { injectable } from "inversify";
+import { MongoDbClient } from "@powerkernel/mongodb-client";
+import { Binary } from "mongodb";
+
+/* local imports */
+import { {{EntityDto}} } from "../../domains/{{EntityDir}}/dtos";
+
+/* type imports */
+import type { {{ViewEntityRepo}} } from "../../domains/{{EntityDir}}/repositories";
+
+/**
+ * class {{Class}}
+ */
+@injectable()
+class {{Class}} implements {{ViewEntityRepo}} {
+  async findOne(id: string): Promise<{{EntityDto}} | null> {
+    const db = MongoDbClient.db;
+
+    const item = await db
+      .collection("{{EntityCollection}}")
+      .findOne({ _id: MongoDbClient.createUuid(id) });
+
+    if (item) {
+      return {
+        id: MongoDbClient.stringifyUuid(item._id as unknown as Binary),
+        createdAt: item.createdAt,
+        updatedAt: item.updatedAt,
+      };
+    }
+    return null;
+  }
+}
+
+export default {{Class}};

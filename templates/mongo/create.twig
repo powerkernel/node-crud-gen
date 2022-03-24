@@ -1,0 +1,28 @@
+/* npm imports */
+import { MongoDbClient } from "@powerkernel/mongodb-client";
+import { injectable } from "inversify";
+
+/* local imports */
+import { {{EntityDto}} } from "../../domains/{{EntityDir}}/dtos";
+
+/* type imports */
+import type { {{CreateEntityRepo}} } from "../../domains/{{EntityDir}}/repositories";
+
+/**
+ * class {{Class}}
+ */
+@injectable()
+class {{Class}} implements {{CreateEntityRepo}} {
+  async insert(dto: {{EntityDto}}): Promise<{{EntityDto}}> {
+    const db = MongoDbClient.db;
+    const data = {
+      _id: MongoDbClient.createUuid(dto.id),
+      createdAt: dto.createdAt,
+      updatedAt: dto.updatedAt,
+    } as never;
+    db.collection("{{EntityCollection}}").insertOne(data);
+    return dto;
+  }
+}
+
+export default {{Class}};

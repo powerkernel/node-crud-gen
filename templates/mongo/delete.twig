@@ -1,0 +1,24 @@
+/* npm imports */
+import { injectable } from "inversify";
+import { MongoDbClient } from "@powerkernel/mongodb-client";
+
+/* type imports */
+import type { {{DeleteEntityRepo}} } from "../../domains/{{EntityDir}}/repositories";
+
+/**
+ * class {{Class}}
+ */
+@injectable()
+class {{Class}} implements {{DeleteEntityRepo}} {
+  async remove(id: string): Promise<boolean> {
+    const db = MongoDbClient.db;
+
+    const result = await db
+      .collection("{{EntityCollection}}")
+      .deleteOne({ _id: MongoDbClient.createUuid(id) });
+
+    return result.deletedCount === 1;
+  }
+}
+
+export default {{Class}};

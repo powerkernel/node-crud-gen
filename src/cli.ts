@@ -435,7 +435,118 @@ const generateControllers = (names: Names) => {
     });
 };
 
-const generateMongo = (names: Names) => {};
+const generateMongo = (names: Names) => {
+  let loader = new TwingLoaderFilesystem(`${__dirname}/../templates/mongo`);
+  let twing = new TwingEnvironment(loader);
+
+  // create
+  twing
+    .render('create.twig', {
+      Class: names.mongo.create.class,
+      EntityDir: names.entity.dir,
+      EntityCollection: names.entity.collection,
+      EntityDto: names.dtos.entity.class,
+      CreateEntityRepo: names.repo.create.class,
+    })
+    .then((output) => {
+      try {
+        fs.writeFileSync(`./src/repositories/${names.entity.dir}/${names.mongo.create.file}.ts`, output);
+      } catch (err) {
+        console.error(err);
+      }
+    });
+
+  // delete
+  twing
+    .render('delete.twig', {
+      Class: names.mongo.delete.class,
+      EntityDir: names.entity.dir,
+      EntityCollection: names.entity.collection,
+      DeleteEntityRepo: names.repo.delete.class,
+    })
+    .then((output) => {
+      try {
+        fs.writeFileSync(`./src/repositories/${names.entity.dir}/${names.mongo.delete.file}.ts`, output);
+      } catch (err) {
+        console.error(err);
+      }
+    });
+
+  // list
+  twing
+    .render('list.twig', {
+      Class: names.mongo.list.class,
+      EntityDir: names.entity.dir,
+      EntityCollection: names.entity.collection,
+
+      EntityDto: names.dtos.entity.class,
+      ListEntityDto: names.dtos.list.class,
+      ListEntityRepo: names.repo.list.class,
+    })
+    .then((output) => {
+      try {
+        fs.writeFileSync(`./src/repositories/${names.entity.dir}/${names.mongo.list.file}.ts`, output);
+      } catch (err) {
+        console.error(err);
+      }
+    });
+
+  // update
+  twing
+    .render('update.twig', {
+      Class: names.mongo.delete.class,
+      EntityDir: names.entity.dir,
+      EntityCollection: names.entity.collection,
+      EntityDto: names.dtos.entity.class,
+      UpdateEntityRepo: names.repo.update.class,
+    })
+    .then((output) => {
+      try {
+        fs.writeFileSync(`./src/repositories/${names.entity.dir}/${names.mongo.update.file}.ts`, output);
+      } catch (err) {
+        console.error(err);
+      }
+    });
+
+  // view
+  twing
+    .render('view.twig', {
+      Class: names.mongo.delete.class,
+      EntityDir: names.entity.dir,
+      EntityCollection: names.entity.collection,
+      EntityDto: names.dtos.entity.class,
+      ViewEntityRepo: names.repo.view.class,
+    })
+    .then((output) => {
+      try {
+        fs.writeFileSync(`./src/repositories/${names.entity.dir}/${names.mongo.view.file}.ts`, output);
+      } catch (err) {
+        console.error(err);
+      }
+    });
+
+  // inedx
+  twing
+    .render('index.twig', {
+      CreateEntityMongoRepoClass: names.mongo.create.class,
+      CreateEntityMongoRepoFile: names.mongo.create.file,
+      DeleteEntityMongoRepoClass: names.mongo.delete.class,
+      DeleteEntityMongoRepoFile: names.mongo.delete.file,
+      ListEntityMongoRepoClass: names.mongo.list.class,
+      ListEntityMongoRepoFile: names.mongo.list.file,
+      UpdateEntityMongoRepoClass: names.mongo.update.class,
+      UpdateEntityMongoRepoFile: names.mongo.update.file,
+      ViewEntityMongoRepoClass: names.mongo.view.class,
+      ViewEntityMongoRepoFile: names.mongo.view.file,
+    })
+    .then((output) => {
+      try {
+        fs.writeFileSync(`./src/repositories/${names.entity.dir}/index.ts`, output);
+      } catch (err) {
+        console.error(err);
+      }
+    });
+};
 
 const cli = async (): Promise<void> => {
   // inputs

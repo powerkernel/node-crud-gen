@@ -11,7 +11,13 @@ interface FileClass {
 }
 
 interface Names {
-  entity: FileClass;
+  entity: {
+    file: string;
+    class: string;
+    dir: string;
+    table: string;
+    collection: string;
+  };
   dtos: {
     entity: FileClass;
     create: FileClass;
@@ -73,8 +79,11 @@ const generateNames = (entity: string): Names => {
 
   return {
     entity: {
+      dir: `${name}`,
       file: `${name}`,
       class: entity,
+      collection: `${name}s`,
+      table: `${name}s`,
     },
     dtos: {
       entity: {
