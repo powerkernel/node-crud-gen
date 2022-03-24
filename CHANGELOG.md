@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.6](https://github.com/powerkernel/node-crud-gen/compare/v0.1.5...v0.1.6) (2022-03-24)
+
+
+### Features
+
+* add action templates ([db113fc](https://github.com/powerkernel/node-crud-gen/commit/db113fc6e5ac2fcc0c878e9251bb8460cd0b8a13))
+* add controller templates ([4236cee](https://github.com/powerkernel/node-crud-gen/commit/4236cee9d0f04d2db05a6eae0841ba61f83d9c93))
+* add mongo template ([03f79e5](https://github.com/powerkernel/node-crud-gen/commit/03f79e5a7f2507b3cff60c95a648f7941ce68de8))
+* refactor and add some templates ([abf19a4](https://github.com/powerkernel/node-crud-gen/commit/abf19a4ff397409b5f7f2c5ac15ae654434b8435))
+
 ### [0.1.5](https://github.com/powerkernel/node-crud-gen/compare/v0.1.4...v0.1.5) (2022-03-19)
 
 
