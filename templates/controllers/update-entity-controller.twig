@@ -1,0 +1,27 @@
+/* npm imports */
+import { inject, injectable } from "inversify";
+
+/* local imports */
+import IDENTIFIERS from "../../../config/identifiers";
+import { {{UpdateEntityDto}} } from "../dtos";
+
+/* type imports */
+import type { {{UpdateEntityAction}} } from "../actions";
+
+/**
+ * class {{Class}}
+ */
+@injectable()
+class {{Class}} {
+  private action: {{UpdateEntityAction}};
+
+  constructor(@inject(IDENTIFIERS.{{UpdateEntityAction}}) action: {{UpdateEntityAction}}) {
+    this.action = action;
+  }
+
+  async execute(dto: {{UpdateEntityDto}}) {
+    return await this.action.handle(dto);
+  }
+}
+
+export default {{Class}};

@@ -7,7 +7,6 @@
 import fs from 'fs';
 import { TwingEnvironment, TwingLoaderFilesystem } from 'twing';
 import { mkdirs, generateNames, Names } from './helper';
-import path from 'path';
 
 const validateArgs = (args: string[]) => {
   if (args.length !== 1) {
@@ -318,6 +317,126 @@ const generateActions = (names: Names) => {
     });
 };
 
+const generateControllers = (names: Names) => {
+  let loader = new TwingLoaderFilesystem(`${__dirname}/../templates/controllers`);
+  let twing = new TwingEnvironment(loader);
+
+  // count
+  twing
+    .render('count-entity-controller.twig', {
+      Class: names.controllers.count.class,
+      ListEntityDto: names.dtos.list.class,
+      CountEntityAction: names.actions.count.class,
+    })
+    .then((output) => {
+      try {
+        fs.writeFileSync(`./src/domains/${names.entity.file}/controllers/${names.controllers.count.file}.ts`, output);
+      } catch (err) {
+        console.error(err);
+      }
+    });
+
+  // create
+  twing
+    .render('create-entity-controller.twig', {
+      Class: names.controllers.create.class,
+      CreateEntityDto: names.dtos.create.class,
+      CreateEntityAction: names.actions.create.class,
+    })
+    .then((output) => {
+      try {
+        fs.writeFileSync(`./src/domains/${names.entity.file}/controllers/${names.controllers.create.file}.ts`, output);
+      } catch (err) {
+        console.error(err);
+      }
+    });
+
+  // delete
+  twing
+    .render('delete-entity-controller.twig', {
+      Class: names.controllers.delete.class,
+      DeleteEntityAction: names.actions.delete.class,
+    })
+    .then((output) => {
+      try {
+        fs.writeFileSync(`./src/domains/${names.entity.file}/controllers/${names.controllers.delete.file}.ts`, output);
+      } catch (err) {
+        console.error(err);
+      }
+    });
+
+  // list
+  twing
+    .render('list-entity-controller.twig', {
+      Class: names.controllers.list.class,
+      Entity: names.entity.class,
+      ListEntityDto: names.dtos.list.class,
+      ListEntityAction: names.actions.list.class,
+    })
+    .then((output) => {
+      try {
+        fs.writeFileSync(`./src/domains/${names.entity.file}/controllers/${names.controllers.list.file}.ts`, output);
+      } catch (err) {
+        console.error(err);
+      }
+    });
+
+  // update
+  twing
+    .render('update-entity-controller.twig', {
+      Class: names.controllers.update.class,
+      UpdateEntityDto: names.dtos.update.class,
+      UpdateEntityAction: names.actions.update.class,
+    })
+    .then((output) => {
+      try {
+        fs.writeFileSync(`./src/domains/${names.entity.file}/controllers/${names.controllers.update.file}.ts`, output);
+      } catch (err) {
+        console.error(err);
+      }
+    });
+
+  // view
+  twing
+    .render('view-entity-controller.twig', {
+      Class: names.controllers.view.class,
+      ViewEntityAction: names.actions.view.class,
+    })
+    .then((output) => {
+      try {
+        fs.writeFileSync(`./src/domains/${names.entity.file}/controllers/${names.controllers.view.file}.ts`, output);
+      } catch (err) {
+        console.error(err);
+      }
+    });
+
+  // inedx
+  twing
+    .render('index.twig', {
+      CountEntityControllerClass: names.controllers.count.class,
+      CountEntityControllerFile: names.controllers.count.file,
+      CreateEntityControllerClass: names.controllers.create.class,
+      CreateEntityControllerFile: names.controllers.create.file,
+      DeleteEntityControllerClass: names.controllers.delete.class,
+      DeleteEntityControllerFile: names.controllers.delete.file,
+      ListEntityControllerClass: names.controllers.list.class,
+      ListEntityControllerFile: names.controllers.list.file,
+      UpdateEntityControllerClass: names.controllers.update.class,
+      UpdateEntityControllerFile: names.controllers.update.file,
+      ViewEntityControllerClass: names.controllers.view.class,
+      ViewEntityControllerFile: names.controllers.view.file,
+    })
+    .then((output) => {
+      try {
+        fs.writeFileSync(`./src/domains/${names.entity.file}/controllers/index.ts`, output);
+      } catch (err) {
+        console.error(err);
+      }
+    });
+};
+
+const generateMongo = (names: Names) => {};
+
 const cli = async (): Promise<void> => {
   // inputs
   const args = process.argv.slice(2);
@@ -343,7 +462,10 @@ const cli = async (): Promise<void> => {
   generateActions(names);
 
   // controllers
+  generateControllers(names);
 
   // mongo
+  generateMongo(names);
 };
+
 export default cli;

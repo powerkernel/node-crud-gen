@@ -1,0 +1,29 @@
+/* npm imports */
+import { inject, injectable } from "inversify";
+
+/* local imports */
+import IDENTIFIERS from "../../../config/identifiers";
+import { {{ListEntityDto}} } from "../dtos";
+import { {{Entity}} } from "../entities";
+
+/* type imports */
+import type { {{ListEntityAction}} } from "../actions";
+
+/**
+ * class {{Class}}
+ */
+@injectable()
+class {{Class}} {
+  private action: {{ListEntityAction}};
+
+  constructor(@inject(IDENTIFIERS.{{ListEntityAction}}) action: {{ListEntityAction}}) {
+    this.action = action;
+  }
+
+  async execute(dto: {{ListEntityDto}}) {
+    const dtos = await this.action.handle(dto);
+    return dtos.map((dto) => {{Entity}}.create(dto).jsonify());
+  }
+}
+
+export default {{Class}};

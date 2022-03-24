@@ -1,0 +1,26 @@
+/* npm imports */
+import { inject, injectable } from "inversify";
+
+/* local imports */
+import IDENTIFIERS from "../../../config/identifiers";
+
+/* type imports */
+import type { {{DeleteEntityAction}} } from "../actions";
+
+/**
+ * class {{Class}}
+ */
+@injectable()
+class {{Class}} {
+  private action: {{DeleteEntityAction}};
+
+  constructor(@inject(IDENTIFIERS.{{DeleteEntityAction}}) action: {{DeleteEntityAction}}) {
+    this.action = action;
+  }
+
+  async execute(id: string) {
+    return await this.action.handle(id);
+  }
+}
+
+export default {{Class}};
