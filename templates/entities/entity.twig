@@ -6,18 +6,25 @@ import { {{EntityDto}} } from "../dtos";
  */
 class {{Class}} extends Entity implements Jsonifier<{{EntityDto}}> {
   // private attributes
+  private wrappedTitle!: string;
   
 
   // constructor
   constructor(dto: {{EntityDto}}) {
     super();
     this.id = dto.id;
+    this.title = dto.title;
     this.createdAt = dto.createdAt;
     this.updatedAt = dto.updatedAt;
   }
 
-  // setters/getters
-  {{SetGetters}}
+  // title
+  public get title(): string {
+    return this.wrappedTitle;
+  }
+  public set title(title: string) {
+    this.wrappedTitle = title;
+  }
 
 
   // factory method
@@ -29,6 +36,7 @@ class {{Class}} extends Entity implements Jsonifier<{{EntityDto}}> {
   jsonify() {
     return {
       id: this.id,
+      title: this.title,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,
     };
