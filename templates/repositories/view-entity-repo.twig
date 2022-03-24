@@ -1,0 +1,7 @@
+import { {{EntityDto}} } from "../dtos";
+
+interface {{Class}} {
+  findOne(id: string): Promise<{{EntityDto}} | null>;
+}
+
+export default {{Class}};

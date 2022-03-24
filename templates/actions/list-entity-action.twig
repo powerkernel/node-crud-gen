@@ -1,0 +1,30 @@
+/* npm imports */
+import { inject, injectable } from "inversify";
+
+/* local imports */
+import IDENTIFIERS from "../../../config/identifiers";
+import { {{EntityDto}}, {{ListEntityDto}} } from "../dtos";
+
+/* type imports */
+import type { {{ListEntityRepo}} } from "../repositories";
+
+/**
+ * class {{Class}}
+ */
+@injectable()
+class {{Class}} {
+  private repo: {{ListEntityRepo}};
+
+  constructor(
+    @inject(IDENTIFIERS.{{ListEntityRepo}})
+    repo: {{ListEntityRepo}}
+  ) {
+    this.repo = repo;
+  }
+
+  public async handle(dto: {{ListEntityDto}}): Promise<{{EntityDto}}[] | []> {
+    return await this.repo.find(dto);
+  }
+}
+
+export default {{Class}};

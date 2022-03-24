@@ -109,6 +109,215 @@ const generateEntiry = (names: Names) => {
   });
 };
 
+const generateRepos = (names: Names) => {
+  let loader = new TwingLoaderFilesystem(`${__dirname}/../templates/repositories`);
+  let twing = new TwingEnvironment(loader);
+
+  // create
+  twing
+    .render('create-entity-repo.twig', { Class: names.repo.create.class, EntityDto: names.dtos.entity.class })
+    .then((output) => {
+      try {
+        fs.writeFileSync(`./src/domains/${names.entity.file}/repositories/${names.repo.create.file}.ts`, output);
+      } catch (err) {
+        console.error(err);
+      }
+    });
+
+  // delete
+  twing.render('delete-entity-repo.twig', { Class: names.repo.delete.class }).then((output) => {
+    try {
+      fs.writeFileSync(`./src/domains/${names.entity.file}/repositories/${names.repo.delete.file}.ts`, output);
+    } catch (err) {
+      console.error(err);
+    }
+  });
+
+  // list
+  twing
+    .render('list-entity-repo.twig', {
+      Class: names.repo.list.class,
+      ListEntityDto: names.dtos.list.class,
+      EntityDto: names.dtos.entity.class,
+    })
+    .then((output) => {
+      try {
+        fs.writeFileSync(`./src/domains/${names.entity.file}/repositories/${names.repo.list.file}.ts`, output);
+      } catch (err) {
+        console.error(err);
+      }
+    });
+
+  // update
+  twing
+    .render('update-entity-repo.twig', { Class: names.repo.update.class, EntityDto: names.dtos.entity.class })
+    .then((output) => {
+      try {
+        fs.writeFileSync(`./src/domains/${names.entity.file}/repositories/${names.repo.update.file}.ts`, output);
+      } catch (err) {
+        console.error(err);
+      }
+    });
+
+  // view
+  twing
+    .render('view-entity-repo.twig', { Class: names.repo.view.class, EntityDto: names.dtos.entity.class })
+    .then((output) => {
+      try {
+        fs.writeFileSync(`./src/domains/${names.entity.file}/repositories/${names.repo.view.file}.ts`, output);
+      } catch (err) {
+        console.error(err);
+      }
+    });
+
+  // inedx
+  twing
+    .render('index.twig', {
+      CreateEntityRepoClass: names.repo.create.class,
+      CreateEntityRepoFile: names.repo.create.file,
+      DeleteEntityRepoClass: names.repo.delete.class,
+      DeleteEntityRepoFile: names.repo.delete.file,
+      ListEntityRepoClass: names.repo.list.class,
+      ListEntityRepoFile: names.repo.list.file,
+      UpdateEntityRepoClass: names.repo.update.class,
+      UpdateEntityRepoFile: names.repo.update.file,
+      ViewEntityRepoClass: names.repo.view.class,
+      ViewEntityRepoFile: names.repo.view.file,
+    })
+    .then((output) => {
+      try {
+        fs.writeFileSync(`./src/domains/${names.entity.file}/repositories/index.ts`, output);
+      } catch (err) {
+        console.error(err);
+      }
+    });
+};
+
+const generateActions = (names: Names) => {
+  let loader = new TwingLoaderFilesystem(`${__dirname}/../templates/actions`);
+  let twing = new TwingEnvironment(loader);
+
+  // count
+  twing
+    .render('count-entity-action.twig', {
+      Class: names.actions.count.class,
+      ListEntityDto: names.dtos.list.class,
+      ListEntityRepo: names.repo.list.class,
+    })
+    .then((output) => {
+      try {
+        fs.writeFileSync(`./src/domains/${names.entity.file}/actions/${names.actions.count.file}.ts`, output);
+      } catch (err) {
+        console.error(err);
+      }
+    });
+
+  // create
+  twing
+    .render('create-entity-action.twig', {
+      Class: names.actions.create.class,
+      CreateEntityDto: names.dtos.create.class,
+      EntityDto: names.dtos.entity.class,
+      Entity: names.entity.class,
+      CreateEntityRepo: names.repo.create.class,
+    })
+    .then((output) => {
+      try {
+        fs.writeFileSync(`./src/domains/${names.entity.file}/actions/${names.actions.create.file}.ts`, output);
+      } catch (err) {
+        console.error(err);
+      }
+    });
+
+  // delete
+  twing
+    .render('delete-entity-action.twig', {
+      Class: names.actions.delete.class,
+      DeleteEntityRepo: names.repo.delete.class,
+    })
+    .then((output) => {
+      try {
+        fs.writeFileSync(`./src/domains/${names.entity.file}/actions/${names.actions.delete.file}.ts`, output);
+      } catch (err) {
+        console.error(err);
+      }
+    });
+
+  // list
+  twing
+    .render('list-entity-action.twig', {
+      Class: names.actions.list.class,
+      EntityDto: names.dtos.entity.class,
+      ListEntityDto: names.dtos.list.class,
+      ListEntityRepo: names.repo.list.class,
+    })
+    .then((output) => {
+      try {
+        fs.writeFileSync(`./src/domains/${names.entity.file}/actions/${names.actions.list.file}.ts`, output);
+      } catch (err) {
+        console.error(err);
+      }
+    });
+
+  // update
+  twing
+    .render('update-entity-action.twig', {
+      Class: names.actions.update.class,
+      Entity: names.entity.class,
+      EntityDto: names.dtos.entity.class,
+      UpdateEntityDto: names.dtos.update.class,
+      UpdateEntityRepo: names.repo.update.class,
+      ViewEntityRepo: names.repo.view.class,
+    })
+    .then((output) => {
+      try {
+        fs.writeFileSync(`./src/domains/${names.entity.file}/actions/${names.actions.update.file}.ts`, output);
+      } catch (err) {
+        console.error(err);
+      }
+    });
+
+  // view
+  twing
+    .render('view-entity-action.twig', {
+      Class: names.actions.view.class,
+      Entity: names.entity.class,
+      EntityDto: names.dtos.entity.class,
+      ViewEntityRepo: names.repo.view.class,
+    })
+    .then((output) => {
+      try {
+        fs.writeFileSync(`./src/domains/${names.entity.file}/actions/${names.actions.view.file}.ts`, output);
+      } catch (err) {
+        console.error(err);
+      }
+    });
+
+  // inedx
+  twing
+    .render('index.twig', {
+      CountEntityActionClass: names.actions.count.class,
+      CountEntityActionFile: names.actions.count.file,
+      CreateEntityActionClass: names.actions.create.class,
+      CreateEntityActionFile: names.actions.create.file,
+      DeleteEntityActionClass: names.actions.delete.class,
+      DeleteEntityActionFile: names.actions.delete.file,
+      ListEntityActionClass: names.actions.list.class,
+      ListEntityActionFile: names.actions.list.file,
+      UpdateEntityActionClass: names.actions.update.class,
+      UpdateEntityActionFile: names.actions.update.file,
+      ViewEntityActionClass: names.actions.view.class,
+      ViewEntityActionFile: names.actions.view.file,
+    })
+    .then((output) => {
+      try {
+        fs.writeFileSync(`./src/domains/${names.entity.file}/actions/index.ts`, output);
+      } catch (err) {
+        console.error(err);
+      }
+    });
+};
+
 const cli = async (): Promise<void> => {
   // inputs
   const args = process.argv.slice(2);
@@ -126,5 +335,15 @@ const cli = async (): Promise<void> => {
 
   // entity
   generateEntiry(names);
+
+  // repositories
+  generateRepos(names);
+
+  // actions
+  generateActions(names);
+
+  // controllers
+
+  // mongo
 };
 export default cli;

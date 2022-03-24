@@ -1,0 +1,42 @@
+/* npm imports */
+import { inject, injectable } from "inversify";
+import { Helper } from "@powerkernel/power-common";
+
+/* local imports */
+import IDENTIFIERS from "../../../config/identifiers";
+import { {{CreateEntityDto}}, {{EntityDto}} } from "../dtos";
+import { {{Entity}} } from "../entities";
+
+/* type imports */
+import type { {{CreateEntityRepo}} } from "../repositories";
+
+/**
+ * class {{Class}}
+ */
+@injectable()
+class {{Class}} {
+  private repo: {{CreateEntityRepo}};
+
+  constructor(
+    @inject(IDENTIFIERS.{{CreateEntityRepo}})
+    repo: {{CreateEntityRepo}}
+  ) {
+    this.repo = repo;
+  }
+
+  public async handle(dto: {{CreateEntityDto}}): Promise<{{EntityDto}}> {
+    const date = new Date();
+
+    const entityDto = {
+      id: Helper.uuidV4(),
+      createdAt: date.toISOString(),
+      updatedAt: date.toISOString(),
+    };
+
+    const entity = {{Entity}}.create(entityDto);
+
+    return await this.repo.insert(entity.jsonify());
+  }
+}
+
+export default {{Class}};

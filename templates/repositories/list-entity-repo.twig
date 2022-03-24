@@ -1,0 +1,8 @@
+import { {{EntityDto}}, {{ListEntityDto}} } from "../dtos";
+
+interface {{Class}} {
+  find(dto: {{ListEntityDto}}): Promise<{{EntityDto}}[] | []>;
+  count(dto: {{ListEntityDto}}): Promise<number>;
+}
+
+export default {{Class}};

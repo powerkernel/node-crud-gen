@@ -1,0 +1,51 @@
+/* npm imports */
+import { inject, injectable } from "inversify";
+
+/* local imports */
+import IDENTIFIERS from "../../../config/identifiers";
+import { {{EntityDto}}, {{UpdateEntityDto}} } from "../dtos";
+import { {{Entity}} } from "../entities";
+
+/* type imports */
+import type { {{UpdateEntityRepo}}, {{ViewEntityRepo}} } from "../repositories";
+
+/**
+ * class {{Class}}
+ */
+@injectable()
+class {{Class}} {
+  private viewRepo: {{ViewEntityRepo}};
+  private updateRepo: {{UpdateEntityRepo}};
+
+  constructor(
+    @inject(IDENTIFIERS.{{UpdateEntityRepo}})
+    updateRepo: {{UpdateEntityRepo}},
+    @inject(IDENTIFIERS.{{ViewEntityRepo}})
+    viewRepo: {{ViewEntityRepo}}
+  ) {
+    this.updateRepo = updateRepo;
+    this.viewRepo = viewRepo;
+  }
+
+  public async handle(dto: {{UpdateEntityDto}}): Promise<{{EntityDto}}> {
+    // find the entity
+    const oldDto = await this.viewRepo.findOne(dto.id);
+    if (oldDto === null) {
+      throw new Error("{{Entity}} not found");
+    }
+
+    // new data
+    const date = new Date();
+    const newDto = {
+      id: dto.id,
+      createdAt: oldDto.createdAt,
+      updatedAt: date.toISOString(),
+    };
+
+    // save
+    const entity = {{Entity}}.create(newDto);
+    return await this.updateRepo.save(entity.jsonify());
+  }
+}
+
+export default {{Class}};
