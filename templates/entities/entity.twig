@@ -1,15 +1,15 @@
-import { Entity, Jsonifier } from '@powerkernel/power-common';
-import { {{ EntityDto }} } from '../dtos';
+import { Entity, Jsonifier } from "@powerkernel/power-common";
+import { {{EntityDto}} } from "../dtos";
 
 /**
- * class {{ Entity }}
+ * class {{Class}}
  */
-class {{ Entity }} extends Entity implements Jsonifier<{{ EntityDto }}> {
+class {{Class}} extends Entity implements Jsonifier<{{EntityDto}}> {
   // private attributes
   
 
   // constructor
-  constructor(dto: {{ EntityDto }}) {
+  constructor(dto: {{EntityDto}}) {
     super();
     this.id = dto.id;
     this.createdAt = dto.createdAt;
@@ -21,8 +21,8 @@ class {{ Entity }} extends Entity implements Jsonifier<{{ EntityDto }}> {
 
 
   // factory method
-  public static create(dto: {{ EntityDto }}) {
-    return new {{ Entity }}(dto);
+  public static create(dto: {{EntityDto}}) {
+    return new {{Class}}(dto);
   }
 
   // to json
@@ -35,4 +35,4 @@ class {{ Entity }} extends Entity implements Jsonifier<{{ EntityDto }}> {
   }
 }
 
-export default {{ Entity }};
+export default {{Class}};

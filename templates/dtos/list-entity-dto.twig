@@ -1,0 +1,14 @@
+interface {{Entity}}FilterDto {
+  q?: string;
+  id?: string;
+}
+
+interface {{Class}} {
+  page?: number;
+  perPage?: number;
+  sortField?: string;
+  sortOrder?: string;
+  filter?: {{Entity}}FilterDto;
+}
+
+export default {{Class}};
