@@ -66,7 +66,7 @@ const bindControllers = (container: Container) => {
 };
 
 const bindActions = (container: Container) => {
-  container.bind<{{CreateEntityAction}}>(IDENTIFIERS.CreateEntityAction).to({{CreateEntityAction}});
+  container.bind<{{CreateEntityAction}}>(IDENTIFIERS.{{CreateEntityAction}}).to({{CreateEntityAction}});
   container.bind<{{ListEntityAction}}>(IDENTIFIERS.{{ListEntityAction}}).to({{ListEntityAction}});
   container.bind<{{ViewEntityAction}}>(IDENTIFIERS.{{ViewEntityAction}}).to({{ViewEntityAction}});
   container.bind<{{DeleteEntityAction}}>(IDENTIFIERS.{{DeleteEntityAction}}).to({{DeleteEntityAction}});

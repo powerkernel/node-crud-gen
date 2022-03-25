@@ -72,6 +72,7 @@ class {{Class}} implements {{ListEntityRepo}} {
     data.forEach((item) => {
       dtos.push({
         id: MongoDbClient.stringifyUuid(item._id as unknown as Binary),
+        title: item.title,
         createdAt: item.createdAt,
         updatedAt: item.updatedAt,
       });

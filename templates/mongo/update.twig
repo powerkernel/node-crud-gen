@@ -16,6 +16,7 @@ class {{Class}} implements {{UpdateEntityRepo}} {
   async save(dto: {{EntityDto}}): Promise<{{EntityDto}}> {
     const db = MongoDbClient.db;
     const data = {
+      title: dto.title,
       createdAt: dto.createdAt,
       updatedAt: dto.updatedAt,
     };

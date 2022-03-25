@@ -17,6 +17,7 @@ class {{Class}} implements {{CreateEntityRepo}} {
     const db = MongoDbClient.db;
     const data = {
       _id: MongoDbClient.createUuid(dto.id),
+      title: dto.title,
       createdAt: dto.createdAt,
       updatedAt: dto.updatedAt,
     } as never;

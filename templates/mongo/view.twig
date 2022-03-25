@@ -24,6 +24,7 @@ class {{Class}} implements {{ViewEntityRepo}} {
     if (item) {
       return {
         id: MongoDbClient.stringifyUuid(item._id as unknown as Binary),
+        title: item.title,
         createdAt: item.createdAt,
         updatedAt: item.updatedAt,
       };
