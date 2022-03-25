@@ -38,6 +38,7 @@ class {{Class}} {
     const date = new Date();
     const newDto = {
       id: dto.id,
+      title: dto.title ?? oldDto.title,
       createdAt: oldDto.createdAt,
       updatedAt: date.toISOString(),
     };
