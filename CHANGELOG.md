@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.13](https://github.com/powerkernel/node-crud-gen/compare/v0.1.12...v0.1.13) (2022-03-27)
+
+
+### Bug Fixes
+
+* template errors ([86c0b5a](https://github.com/powerkernel/node-crud-gen/commit/86c0b5a95458fd876054b34a92464a850d915260))
+
 ### [0.1.12](https://github.com/powerkernel/node-crud-gen/compare/v0.1.11...v0.1.12) (2022-03-27)
 
 
