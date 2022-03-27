@@ -1,0 +1,31 @@
+import { injectable } from "inversify";
+import container from "../../../../config/container";
+import IDENTIFIERS from "../../../../config/identifiers";
+import { {{DeleteEntityController}} } from "..";
+
+it("should invoke the delete action", async () => {
+  // start: mock
+  container.unbind(IDENTIFIERS.{{DeleteEntityAction}});
+  container
+    .bind<{{DeleteEntityMockAction}}>(IDENTIFIERS.{{DeleteEntityAction}})
+    .to({{DeleteEntityMockAction}});
+  // end: mock
+
+  const controller = container.get<{{DeleteEntityController}}>(
+    IDENTIFIERS.{{DeleteEntityController}}
+  );
+
+  const id = "f2901959-b087-4495-92a5-441d9c1efd36";
+  const result = await controller.execute(id);
+  expect(result).toEqual(true);
+});
+
+/**
+ * Mock Action
+ */
+@injectable()
+class {{DeleteEntityMockAction}} {
+  async handle(id: string): Promise<boolean> {
+    return id !== "00000000-0000-0000-0000-000000000000";
+  }
+}

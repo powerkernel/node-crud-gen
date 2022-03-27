@@ -5,9 +5,10 @@
  */
 import fs from 'fs';
 
-interface FileClass {
-  file?: string;
+interface FileClassMock {
   class: string;
+  file?: string;
+  mock?: string;
 }
 
 interface Names {
@@ -19,47 +20,40 @@ interface Names {
     collection: string;
   };
   dtos: {
-    entity: FileClass;
-    create: FileClass;
-    list: FileClass;
-    update: FileClass;
+    entity: FileClassMock;
+    create: FileClassMock;
+    list: FileClassMock;
+    update: FileClassMock;
   };
   controllers: {
-    count: FileClass;
-    create: FileClass;
-    delete: FileClass;
-    list: FileClass;
-    update: FileClass;
-    view: FileClass;
+    count: FileClassMock;
+    create: FileClassMock;
+    delete: FileClassMock;
+    list: FileClassMock;
+    update: FileClassMock;
+    view: FileClassMock;
   };
   actions: {
-    count: FileClass;
-    create: FileClass;
-    delete: FileClass;
-    list: FileClass;
-    update: FileClass;
-    view: FileClass;
+    count: FileClassMock;
+    create: FileClassMock;
+    delete: FileClassMock;
+    list: FileClassMock;
+    update: FileClassMock;
+    view: FileClassMock;
   };
   repo: {
-    create: FileClass;
-    delete: FileClass;
-    list: FileClass;
-    update: FileClass;
-    view: FileClass;
-  };
-  mockRepo: {
-    create: FileClass;
-    delete: FileClass;
-    list: FileClass;
-    update: FileClass;
-    view: FileClass;
+    create: FileClassMock;
+    delete: FileClassMock;
+    list: FileClassMock;
+    update: FileClassMock;
+    view: FileClassMock;
   };
   mongo: {
-    create: FileClass;
-    delete: FileClass;
-    list: FileClass;
-    update: FileClass;
-    view: FileClass;
+    create: FileClassMock;
+    delete: FileClassMock;
+    list: FileClassMock;
+    update: FileClassMock;
+    view: FileClassMock;
   };
 }
 
@@ -140,65 +134,59 @@ const generateNames = (entity: string): Names => {
       count: {
         file: `count-${name}-action`,
         class: `Count${entity}Action`,
+        mock: `Count${entity}MockAction`,
       },
       create: {
         file: `create-${name}-action`,
         class: `Create${entity}Action`,
+        mock: `Create${entity}MockAction`,
       },
       delete: {
         file: `delete-${name}-action`,
         class: `Delete${entity}Action`,
+        mock: `Delete${entity}MockAction`,
       },
       list: {
         file: `list-${name}-action`,
         class: `List${entity}Action`,
+        mock: `List${entity}MockAction`,
       },
       update: {
         file: `update-${name}-action`,
         class: `Update${entity}Action`,
+        mock: `Update${entity}MockAction`,
       },
       view: {
         file: `view-${name}-action`,
         class: `View${entity}Action`,
+        mock: `View${entity}MockAction`,
       },
     },
     repo: {
       create: {
         file: `create-${name}-repo`,
         class: `Create${entity}Repo`,
+        mock: `Create${entity}MockRepo`,
       },
       delete: {
         file: `delete-${name}-repo`,
         class: `Delete${entity}Repo`,
+        mock: `Delete${entity}MockRepo`,
       },
       list: {
         file: `list-${name}-repo`,
         class: `List${entity}Repo`,
+        mock: `List${entity}MockRepo`,
       },
       update: {
         file: `update-${name}-repo`,
         class: `Update${entity}Repo`,
+        mock: `Update${entity}MockRepo`,
       },
       view: {
         file: `view-${name}-repo`,
         class: `View${entity}Repo`,
-      },
-    },
-    mockRepo: {
-      create: {
-        class: `Create${entity}MockRepo`,
-      },
-      delete: {
-        class: `Delete${entity}MockRepo`,
-      },
-      list: {
-        class: `List${entity}MockRepo`,
-      },
-      update: {
-        class: `Update${entity}MockRepo`,
-      },
-      view: {
-        class: `View${entity}MockRepo`,
+        mock: `View${entity}MockRepo`,
       },
     },
     mongo: {
@@ -243,6 +231,13 @@ const generateTwigVars = (names: Names) => {
     UpdateEntityActionFile: names.actions.update.file,
     ViewEntityActionFile: names.actions.view.file,
 
+    CountEntityMockAction: names.actions.count.mock,
+    CreateEntityMockAction: names.actions.create.mock,
+    DeleteEntityMockAction: names.actions.delete.mock,
+    ListEntityMockAction: names.actions.list.mock,
+    UpdateEntityMockAction: names.actions.update.mock,
+    ViewEntityMockAction: names.actions.view.mock,
+
     // controllers
     CountEntityController: names.controllers.count.class,
     CreateEntityController: names.controllers.create.class,
@@ -274,12 +269,11 @@ const generateTwigVars = (names: Names) => {
     UpdateEntityRepo: names.repo.update.class,
     ViewEntityRepo: names.repo.view.class,
 
-    // mock repo
-    CreateEntityMockRepo: names.mockRepo.create.class,
-    DeleteEntityMockRepo: names.mockRepo.delete.class,
-    ListEntityMockRepo: names.mockRepo.list.class,
-    UpdateEntityMockRepo: names.mockRepo.update.class,
-    ViewEntityMockRepo: names.mockRepo.view.class,
+    CreateEntityMockRepo: names.repo.create.mock,
+    DeleteEntityMockRepo: names.repo.delete.mock,
+    ListEntityMockRepo: names.repo.list.mock,
+    UpdateEntityMockRepo: names.repo.update.mock,
+    ViewEntityMockRepo: names.repo.view.mock,
 
     // mongo
     CreateEntityMongoRepo: names.mongo.create.class,

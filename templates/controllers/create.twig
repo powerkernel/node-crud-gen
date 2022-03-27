@@ -9,10 +9,10 @@ import { {{CreateEntityDto}} } from "../dtos";
 import type { {{CreateEntityAction}} } from "../actions";
 
 /**
- * class {{Class}}
+ * class {{CreateEntityController}}
  */
 @injectable()
-class {{Class}} {
+class {{CreateEntityController}} {
   private action: {{CreateEntityAction}};
 
   constructor(@inject(IDENTIFIERS.{{CreateEntityAction}}) action: {{CreateEntityAction}}) {
@@ -24,4 +24,4 @@ class {{Class}} {
   }
 }
 
-export default {{Class}};
+export default {{CreateEntityController}};

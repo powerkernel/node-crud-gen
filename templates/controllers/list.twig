@@ -10,10 +10,10 @@ import { {{Entity}} } from "../entities";
 import type { {{ListEntityAction}} } from "../actions";
 
 /**
- * class {{Class}}
+ * class {{ListEntityController}}
  */
 @injectable()
-class {{Class}} {
+class {{ListEntityController}} {
   private action: {{ListEntityAction}};
 
   constructor(@inject(IDENTIFIERS.{{ListEntityAction}}) action: {{ListEntityAction}}) {
@@ -26,4 +26,4 @@ class {{Class}} {
   }
 }
 
-export default {{Class}};
+export default {{ListEntityController}};

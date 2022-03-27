@@ -1,0 +1,37 @@
+import { injectable } from "inversify";
+import container from "../../../../config/container";
+import IDENTIFIERS from "../../../../config/identifiers";
+import { {{UpdateEntityController}} } from "..";
+import { {{EntityDto}} } from "../../dtos";
+
+it("should invoke the update action", async () => {
+  // start: mock
+  container.unbind(IDENTIFIERS.{{UpdateEntityAction}});
+  container
+    .bind<{{UpdateEntityMockAction}}>(IDENTIFIERS.{{UpdateEntityAction}})
+    .to({{UpdateEntityMockAction}});
+  // end: mock
+
+  const controller = container.get<{{UpdateEntityController}}>(
+    IDENTIFIERS.{{UpdateEntityController}}
+  );
+  const result = await controller.execute({
+    id: "f2901959-b087-4495-92a5-441d9c1efd36",
+    title: "The new title",
+  });
+  expect(result).toEqual(
+    expect.objectContaining({
+      title: "The new title",
+    })
+  );
+});
+
+/**
+ * Mock Action
+ */
+@injectable()
+class {{UpdateEntityMockAction}} {
+  async handle(dto: {{EntityDto}}): Promise<{{EntityDto}}> {
+    return dto;
+  }
+}

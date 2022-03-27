@@ -9,10 +9,10 @@ import { {{ListEntityDto}} } from "../dtos";
 import type { {{CountEntityAction}} } from "../actions";
 
 /**
- * class {{Class}}
+ * class {{CountEntityController}}
  */
 @injectable()
-class {{Class}} {
+class {{CountEntityController}} {
   private action: {{CountEntityAction}};
 
   constructor(@inject(IDENTIFIERS.{{CountEntityAction}}) action: {{CountEntityAction}}) {
@@ -26,4 +26,4 @@ class {{Class}} {
   }
 }
 
-export default {{Class}};
+export default {{CountEntityController}};

@@ -1,0 +1,36 @@
+import { injectable } from "inversify";
+import container from "../../../../config/container";
+import IDENTIFIERS from "../../../../config/identifiers";
+import { {{CreateEntityController}} } from "..";
+import { {{EntityDto}} } from "../../dtos";
+
+it("should invoke the create action", async () => {
+  // start: mock
+  container.unbind(IDENTIFIERS.{{CreateEntityAction}});
+  container
+    .bind<{{CreateEntityMockAction}}>(IDENTIFIERS.{{CreateEntityAction}})
+    .to({{CreateEntityMockAction}});
+  // end: mock
+
+  const controller = container.get<{{CreateEntityController}}>(
+    IDENTIFIERS.{{CreateEntityController}}
+  );
+  const result = await controller.execute({
+    title: "The title",
+  });
+  expect(result).toEqual(
+    expect.objectContaining({
+      title: "The title",
+    })
+  );
+});
+
+/**
+ * Mock Action
+ */
+@injectable()
+class {{CreateEntityMockAction}} {
+  async handle(dto: {{EntityDto}}): Promise<{{EntityDto}}> {
+    return dto;
+  }
+}

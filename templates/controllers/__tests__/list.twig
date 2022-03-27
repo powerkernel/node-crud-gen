@@ -1,0 +1,60 @@
+import { injectable } from "inversify";
+import container from "../../../../config/container";
+import IDENTIFIERS from "../../../../config/identifiers";
+import { {{ListEntityController}} } from "..";
+import { {{ListEntityDto}}, {{EntityDto}} } from "../../dtos";
+
+it("should invoke the list action", async () => {
+  // start: mock
+  container.unbind(IDENTIFIERS.{{ListEntityAction}});
+  container
+    .bind<{{ListEntityMockAction}}>(IDENTIFIERS.{{ListEntityAction}})
+    .to({{ListEntityMockAction}});
+  // end: mock
+
+  const controller = container.get<{{ListEntityController}}>(
+    IDENTIFIERS.{{ListEntityController}}
+  );
+
+  const result = await controller.execute({});
+  expect(result).toEqual([
+    {
+      id: "f2901959-b087-4495-92a5-441d9c1efd36",
+      title: "title 2",
+      createdAt: "2022-01-31T10:14:37.535Z",
+      updatedAt: "2022-01-31T10:14:37.535Z",
+    },
+    {
+      id: "f2901959-b087-4495-92a5-441d9c1efd37",
+      title: "title 1",
+      createdAt: "2022-01-31T10:14:37.535Z",
+      updatedAt: "2022-01-31T10:14:37.535Z",
+    },
+  ]);
+});
+
+/**
+ * Mock Action
+ */
+@injectable()
+class {{ListEntityMockAction}} {
+  async handle(dto: {{ListEntityDto}}): Promise<{{EntityDto}}[] | []> {
+    if (dto.filter?.q === "null") {
+      return [];
+    }
+    return [
+      {
+        id: "f2901959-b087-4495-92a5-441d9c1efd36",
+        title: "title 2",
+        createdAt: "2022-01-31T10:14:37.535Z",
+        updatedAt: "2022-01-31T10:14:37.535Z",
+      },
+      {
+        id: "f2901959-b087-4495-92a5-441d9c1efd37",
+        title: "title 1",
+        createdAt: "2022-01-31T10:14:37.535Z",
+        updatedAt: "2022-01-31T10:14:37.535Z",
+      },
+    ];
+  }
+}

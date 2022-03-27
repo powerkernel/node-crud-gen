@@ -8,10 +8,10 @@ import IDENTIFIERS from "../../../config/identifiers";
 import type { {{DeleteEntityAction}} } from "../actions";
 
 /**
- * class {{Class}}
+ * class {{DeleteEntityController}}
  */
 @injectable()
-class {{Class}} {
+class {{DeleteEntityController}} {
   private action: {{DeleteEntityAction}};
 
   constructor(@inject(IDENTIFIERS.{{DeleteEntityAction}}) action: {{DeleteEntityAction}}) {
@@ -23,4 +23,4 @@ class {{Class}} {
   }
 }
 
-export default {{Class}};
+export default {{DeleteEntityController}};

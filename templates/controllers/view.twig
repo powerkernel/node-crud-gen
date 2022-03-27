@@ -8,10 +8,10 @@ import IDENTIFIERS from "../../../config/identifiers";
 import type { {{ViewEntityAction}} } from "../actions";
 
 /**
- * class {{Class}}
+ * class {{ViewEntityController}}
  */
 @injectable()
-class {{Class}} {
+class {{ViewEntityController}} {
   private action: {{ViewEntityAction}};
 
   constructor(@inject(IDENTIFIERS.{{ViewEntityAction}}) action: {{ViewEntityAction}}) {
@@ -23,4 +23,4 @@ class {{Class}} {
   }
 }
 
-export default {{Class}};
+export default {{ViewEntityController}};

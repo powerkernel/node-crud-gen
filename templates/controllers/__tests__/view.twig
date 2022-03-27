@@ -1,0 +1,42 @@
+import { injectable } from "inversify";
+import container from "../../../../config/container";
+import IDENTIFIERS from "../../../../config/identifiers";
+import { {{ViewEntityController}} } from "..";
+import { {{EntityDto}} } from "../../dtos";
+
+it("should invoke the view action", async () => {
+  // start: mock
+  container.unbind(IDENTIFIERS.{{ViewEntityAction}});
+  container
+    .bind<{{ViewEntityMockAction}}>(IDENTIFIERS.{{ViewEntityAction}})
+    .to({{ViewEntityMockAction}});
+  // end: mock
+
+  const controller = container.get<{{ViewEntityController}}>(
+    IDENTIFIERS.{{ViewEntityController}}
+  );
+
+  const id = "f2901959-b087-4495-92a5-441d9c1efd36";
+  const result = await controller.execute(id);
+  expect(result).toEqual({
+    id: id,
+    title: "The title",
+    createdAt: "2022-01-31T10:14:37.535Z",
+    updatedAt: "2022-01-31T10:14:37.535Z",
+  });
+});
+
+/**
+ * Mock Action
+ */
+@injectable()
+class {{ViewEntityMockAction}} {
+  async handle(id: string): Promise<{{EntityDto}}> {
+    return {
+      id: id,
+      title: "The title",
+      createdAt: "2022-01-31T10:14:37.535Z",
+      updatedAt: "2022-01-31T10:14:37.535Z",
+    };
+  }
+}

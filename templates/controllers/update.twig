@@ -9,10 +9,10 @@ import { {{UpdateEntityDto}} } from "../dtos";
 import type { {{UpdateEntityAction}} } from "../actions";
 
 /**
- * class {{Class}}
+ * class {{UpdateEntityController}}
  */
 @injectable()
-class {{Class}} {
+class {{UpdateEntityController}} {
   private action: {{UpdateEntityAction}};
 
   constructor(@inject(IDENTIFIERS.{{UpdateEntityAction}}) action: {{UpdateEntityAction}}) {
@@ -24,4 +24,4 @@ class {{Class}} {
   }
 }
 
-export default {{Class}};
+export default {{UpdateEntityController}};
