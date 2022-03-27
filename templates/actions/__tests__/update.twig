@@ -21,14 +21,25 @@ it("should perform the update action", async () => {
 
   const action = container.get<{{UpdateEntityAction}}>(IDENTIFIERS.{{UpdateEntityAction}});
 
-  // test
-  const result = await action.handle({
+  // test with data
+  const result1 = await action.handle({
     id: id,
     title: "The new title",
   });
-  expect(result).toEqual({
+  expect(result1).toEqual({
     id: id,
     title: "The new title",
+    createdAt: "2022-01-31T10:14:37.535Z",
+    updatedAt: "2022-01-31T10:14:37.535Z",
+  });
+
+  // test without data
+  const result2 = await action.handle({
+    id: id,
+  });
+  expect(result2).toEqual({
+    id: id,
+    title: "The old title",
     createdAt: "2022-01-31T10:14:37.535Z",
     updatedAt: "2022-01-31T10:14:37.535Z",
   });

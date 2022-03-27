@@ -43,6 +43,11 @@ class {{ListEntityMongoRepo}} implements {{ListEntityRepo}} {
         _id: MongoDbClient.createUuid(dto.filter.id),
       });
     }
+    if (dto.filter?.q) {
+      filter.push({
+        title: MongoDbClient.createUuid(dto.filter.q),
+      });
+    }
 
     return {
       limit,

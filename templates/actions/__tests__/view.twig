@@ -9,7 +9,7 @@ it("should perform the view action", async () => {
   container.unbind(IDENTIFIERS.{{ViewEntityRepo}});
   container
     .bind<{{ViewEntityMockRepo}}>(IDENTIFIERS.{{ViewEntityRepo}})
-    .to({ViewEntityMockRepo});
+    .to({{ViewEntityMockRepo}});
   // end: mock
 
   const id = "f2901959-b087-4495-92a5-441d9c1efd36";

@@ -1,4 +1,4 @@
-import { {{Class}} } from "..";
+import { {{Entity}} } from "..";
 
 it("should return a json object", () => {
   const now = new Date();
@@ -9,7 +9,7 @@ it("should return a json object", () => {
     updatedAt: now.toISOString(),
   };
 
-  const entity = {{Class}}.create(dto);
+  const entity = {{Entity}}.create(dto);
   const json = entity.jsonify();
   expect(json).toEqual(dto);
 });
