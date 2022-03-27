@@ -9,10 +9,10 @@ import { {{EntityDto}} } from "../../domains/{{EntityDir}}/dtos";
 import type { {{UpdateEntityRepo}} } from "../../domains/{{EntityDir}}/repositories";
 
 /**
- * class {{Class}}
+ * class {{UpdateEntityMongoRepo}}
  */
 @injectable()
-class {{Class}} implements {{UpdateEntityRepo}} {
+class {{UpdateEntityMongoRepo}} implements {{UpdateEntityRepo}} {
   async save(dto: {{EntityDto}}): Promise<{{EntityDto}}> {
     const db = MongoDbClient.db;
     const data = {
@@ -27,4 +27,4 @@ class {{Class}} implements {{UpdateEntityRepo}} {
   }
 }
 
-export default {{Class}};
+export default {{UpdateEntityMongoRepo}};

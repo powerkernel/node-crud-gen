@@ -11,10 +11,10 @@ import { {{EntityDto}}, {{ListEntityDto}} } from "../../domains/{{EntityDir}}/dt
 import type { {{ListEntityRepo}} } from "../../domains/{{EntityDir}}/repositories";
 
 /**
- * class {{Class}}
+ * class {{ListEntityMongoRepo}}
  */
 @injectable()
-class {{Class}} implements {{ListEntityRepo}} {
+class {{ListEntityMongoRepo}} implements {{ListEntityRepo}} {
   private generateQueryOptions(dto: {{ListEntityDto}}) {
     // pagination
     const pageSize = config.get("pageSize") as {
@@ -95,4 +95,4 @@ class {{Class}} implements {{ListEntityRepo}} {
   }
 }
 
-export default {{Class}};
+export default {{ListEntityMongoRepo}};

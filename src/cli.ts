@@ -66,81 +66,39 @@ const generateEntiry = (names: Names) => {
 };
 
 const generateRepos = (names: Names) => {
-  let loader = new TwingLoaderFilesystem(`${__dirname}/../templates/repositories`);
-  let twing = new TwingEnvironment(loader);
+  const loader = new TwingLoaderFilesystem(`${__dirname}/../templates/repositories`);
+  const twing = new TwingEnvironment(loader);
+  const vars = generateTwigVars(names);
 
   // create
-  twing.render('create.twig', { Class: names.repo.create.class, EntityDto: names.dtos.entity.class }).then((output) => {
-    try {
-      fs.writeFileSync(`./src/domains/${names.entity.dir}/repositories/${names.repo.create.file}.ts`, output);
-    } catch (err) {
-      console.error(err);
-    }
+  twing.render('create.twig', vars).then((output) => {
+    fs.writeFileSync(`./src/domains/${names.entity.dir}/repositories/${names.repo.create.file}.ts`, output);
   });
 
   // delete
-  twing.render('delete.twig', { Class: names.repo.delete.class }).then((output) => {
-    try {
-      fs.writeFileSync(`./src/domains/${names.entity.dir}/repositories/${names.repo.delete.file}.ts`, output);
-    } catch (err) {
-      console.error(err);
-    }
+  twing.render('delete.twig', vars).then((output) => {
+    fs.writeFileSync(`./src/domains/${names.entity.dir}/repositories/${names.repo.delete.file}.ts`, output);
   });
 
   // list
-  twing
-    .render('list.twig', {
-      Class: names.repo.list.class,
-      ListEntityDto: names.dtos.list.class,
-      EntityDto: names.dtos.entity.class,
-    })
-    .then((output) => {
-      try {
-        fs.writeFileSync(`./src/domains/${names.entity.dir}/repositories/${names.repo.list.file}.ts`, output);
-      } catch (err) {
-        console.error(err);
-      }
-    });
+  twing.render('list.twig', vars).then((output) => {
+    fs.writeFileSync(`./src/domains/${names.entity.dir}/repositories/${names.repo.list.file}.ts`, output);
+  });
 
   // update
-  twing.render('update.twig', { Class: names.repo.update.class, EntityDto: names.dtos.entity.class }).then((output) => {
-    try {
-      fs.writeFileSync(`./src/domains/${names.entity.dir}/repositories/${names.repo.update.file}.ts`, output);
-    } catch (err) {
-      console.error(err);
-    }
+  twing.render('update.twig', vars).then((output) => {
+    fs.writeFileSync(`./src/domains/${names.entity.dir}/repositories/${names.repo.update.file}.ts`, output);
   });
 
   // view
-  twing.render('view.twig', { Class: names.repo.view.class, EntityDto: names.dtos.entity.class }).then((output) => {
-    try {
-      fs.writeFileSync(`./src/domains/${names.entity.dir}/repositories/${names.repo.view.file}.ts`, output);
-    } catch (err) {
-      console.error(err);
-    }
+  twing.render('view.twig', vars).then((output) => {
+    fs.writeFileSync(`./src/domains/${names.entity.dir}/repositories/${names.repo.view.file}.ts`, output);
   });
 
   // inedx
-  twing
-    .render('index.twig', {
-      CreateEntityRepoClass: names.repo.create.class,
-      CreateEntityRepoFile: names.repo.create.file,
-      DeleteEntityRepoClass: names.repo.delete.class,
-      DeleteEntityRepoFile: names.repo.delete.file,
-      ListEntityRepoClass: names.repo.list.class,
-      ListEntityRepoFile: names.repo.list.file,
-      UpdateEntityRepoClass: names.repo.update.class,
-      UpdateEntityRepoFile: names.repo.update.file,
-      ViewEntityRepoClass: names.repo.view.class,
-      ViewEntityRepoFile: names.repo.view.file,
-    })
-    .then((output) => {
-      try {
-        fs.writeFileSync(`./src/domains/${names.entity.dir}/repositories/index.ts`, output);
-      } catch (err) {
-        console.error(err);
-      }
-    });
+  twing.render('index.twig', vars).then((output) => {
+    fs.writeFileSync(`./src/domains/${names.entity.dir}/repositories/index.ts`, output);
+  });
 };
 
 const generateActions = (names: Names) => {
@@ -289,116 +247,39 @@ const generateControllers = (names: Names) => {
 };
 
 const generateMongo = (names: Names) => {
-  let loader = new TwingLoaderFilesystem(`${__dirname}/../templates/mongo`);
-  let twing = new TwingEnvironment(loader);
+  const loader = new TwingLoaderFilesystem(`${__dirname}/../templates/mongo`);
+  const twing = new TwingEnvironment(loader);
+  const vars = generateTwigVars(names);
 
   // create
-  twing
-    .render('create.twig', {
-      Class: names.mongo.create.class,
-      EntityDir: names.entity.dir,
-      EntityCollection: names.entity.collection,
-      EntityDto: names.dtos.entity.class,
-      CreateEntityRepo: names.repo.create.class,
-    })
-    .then((output) => {
-      try {
-        fs.writeFileSync(`./src/repositories/${names.entity.dir}/${names.mongo.create.file}.ts`, output);
-      } catch (err) {
-        console.error(err);
-      }
-    });
+  twing.render('create.twig', vars).then((output) => {
+    fs.writeFileSync(`./src/repositories/${names.entity.dir}/${names.mongo.create.file}.ts`, output);
+  });
 
   // delete
-  twing
-    .render('delete.twig', {
-      Class: names.mongo.delete.class,
-      EntityDir: names.entity.dir,
-      EntityCollection: names.entity.collection,
-      DeleteEntityRepo: names.repo.delete.class,
-    })
-    .then((output) => {
-      try {
-        fs.writeFileSync(`./src/repositories/${names.entity.dir}/${names.mongo.delete.file}.ts`, output);
-      } catch (err) {
-        console.error(err);
-      }
-    });
+  twing.render('delete.twig', vars).then((output) => {
+    fs.writeFileSync(`./src/repositories/${names.entity.dir}/${names.mongo.delete.file}.ts`, output);
+  });
 
   // list
-  twing
-    .render('list.twig', {
-      Class: names.mongo.list.class,
-      EntityDir: names.entity.dir,
-      EntityCollection: names.entity.collection,
-
-      EntityDto: names.dtos.entity.class,
-      ListEntityDto: names.dtos.list.class,
-      ListEntityRepo: names.repo.list.class,
-    })
-    .then((output) => {
-      try {
-        fs.writeFileSync(`./src/repositories/${names.entity.dir}/${names.mongo.list.file}.ts`, output);
-      } catch (err) {
-        console.error(err);
-      }
-    });
+  twing.render('list.twig', vars).then((output) => {
+    fs.writeFileSync(`./src/repositories/${names.entity.dir}/${names.mongo.list.file}.ts`, output);
+  });
 
   // update
-  twing
-    .render('update.twig', {
-      Class: names.mongo.delete.class,
-      EntityDir: names.entity.dir,
-      EntityCollection: names.entity.collection,
-      EntityDto: names.dtos.entity.class,
-      UpdateEntityRepo: names.repo.update.class,
-    })
-    .then((output) => {
-      try {
-        fs.writeFileSync(`./src/repositories/${names.entity.dir}/${names.mongo.update.file}.ts`, output);
-      } catch (err) {
-        console.error(err);
-      }
-    });
+  twing.render('update.twig', vars).then((output) => {
+    fs.writeFileSync(`./src/repositories/${names.entity.dir}/${names.mongo.update.file}.ts`, output);
+  });
 
   // view
-  twing
-    .render('view.twig', {
-      Class: names.mongo.delete.class,
-      EntityDir: names.entity.dir,
-      EntityCollection: names.entity.collection,
-      EntityDto: names.dtos.entity.class,
-      ViewEntityRepo: names.repo.view.class,
-    })
-    .then((output) => {
-      try {
-        fs.writeFileSync(`./src/repositories/${names.entity.dir}/${names.mongo.view.file}.ts`, output);
-      } catch (err) {
-        console.error(err);
-      }
-    });
+  twing.render('view.twig', vars).then((output) => {
+    fs.writeFileSync(`./src/repositories/${names.entity.dir}/${names.mongo.view.file}.ts`, output);
+  });
 
   // inedx
-  twing
-    .render('index.twig', {
-      CreateEntityMongoRepoClass: names.mongo.create.class,
-      CreateEntityMongoRepoFile: names.mongo.create.file,
-      DeleteEntityMongoRepoClass: names.mongo.delete.class,
-      DeleteEntityMongoRepoFile: names.mongo.delete.file,
-      ListEntityMongoRepoClass: names.mongo.list.class,
-      ListEntityMongoRepoFile: names.mongo.list.file,
-      UpdateEntityMongoRepoClass: names.mongo.update.class,
-      UpdateEntityMongoRepoFile: names.mongo.update.file,
-      ViewEntityMongoRepoClass: names.mongo.view.class,
-      ViewEntityMongoRepoFile: names.mongo.view.file,
-    })
-    .then((output) => {
-      try {
-        fs.writeFileSync(`./src/repositories/${names.entity.dir}/index.ts`, output);
-      } catch (err) {
-        console.error(err);
-      }
-    });
+  twing.render('index.twig', vars).then((output) => {
+    fs.writeFileSync(`./src/repositories/${names.entity.dir}/index.ts`, output);
+  });
 };
 
 const generateIco = (names: Names) => {

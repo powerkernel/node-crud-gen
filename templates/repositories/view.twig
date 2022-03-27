@@ -1,7 +1,7 @@
 import { {{EntityDto}} } from "../dtos";
 
-interface {{Class}} {
+interface {{ViewEntityRepo}} {
   findOne(id: string): Promise<{{EntityDto}} | null>;
 }
 
-export default {{Class}};
+export default {{ViewEntityRepo}};

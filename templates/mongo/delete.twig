@@ -6,10 +6,10 @@ import { MongoDbClient } from "@powerkernel/mongodb-client";
 import type { {{DeleteEntityRepo}} } from "../../domains/{{EntityDir}}/repositories";
 
 /**
- * class {{Class}}
+ * class {{DeleteEntityMongoRepo}}
  */
 @injectable()
-class {{Class}} implements {{DeleteEntityRepo}} {
+class {{DeleteEntityMongoRepo}} implements {{DeleteEntityRepo}} {
   async remove(id: string): Promise<boolean> {
     const db = MongoDbClient.db;
 
@@ -21,4 +21,4 @@ class {{Class}} implements {{DeleteEntityRepo}} {
   }
 }
 
-export default {{Class}};
+export default {{DeleteEntityMongoRepo}};

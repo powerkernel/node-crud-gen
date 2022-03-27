@@ -10,10 +10,10 @@ import { {{EntityDto}} } from "../../domains/{{EntityDir}}/dtos";
 import type { {{ViewEntityRepo}} } from "../../domains/{{EntityDir}}/repositories";
 
 /**
- * class {{Class}}
+ * class {{ViewEntityMongoRepo}}
  */
 @injectable()
-class {{Class}} implements {{ViewEntityRepo}} {
+class {{ViewEntityMongoRepo}} implements {{ViewEntityRepo}} {
   async findOne(id: string): Promise<{{EntityDto}} | null> {
     const db = MongoDbClient.db;
 
@@ -33,4 +33,4 @@ class {{Class}} implements {{ViewEntityRepo}} {
   }
 }
 
-export default {{Class}};
+export default {{ViewEntityMongoRepo}};

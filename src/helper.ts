@@ -267,6 +267,8 @@ const generateTwigVars = (names: Names) => {
     // entity
     Entity: names.entity.class,
     EntityFile: names.entity.file,
+    EntityDir: names.entity.dir,
+    EntityCollection: names.entity.collection,
 
     // repo
     CreateEntityRepo: names.repo.create.class,
@@ -274,6 +276,12 @@ const generateTwigVars = (names: Names) => {
     ListEntityRepo: names.repo.list.class,
     UpdateEntityRepo: names.repo.update.class,
     ViewEntityRepo: names.repo.view.class,
+
+    CreateEntityRepoFile: names.repo.create.file,
+    DeleteEntityRepoFile: names.repo.delete.file,
+    ListEntityRepoFile: names.repo.list.file,
+    UpdateEntityRepoFile: names.repo.update.file,
+    ViewEntityRepoFile: names.repo.view.file,
 
     CreateEntityMockRepo: names.repo.create.mock,
     DeleteEntityMockRepo: names.repo.delete.mock,
@@ -287,6 +295,12 @@ const generateTwigVars = (names: Names) => {
     ListEntityMongoRepo: names.mongo.list.class,
     UpdateEntityMongoRepo: names.mongo.update.class,
     ViewEntityMongoRepo: names.mongo.view.class,
+
+    CreateEntityMongoRepoFile: names.mongo.create.file,
+    DeleteEntityMongoRepoFile: names.mongo.delete.file,
+    ListEntityMongoRepoFile: names.mongo.list.file,
+    UpdateEntityMongoRepoFile: names.mongo.update.file,
+    ViewEntityMongoRepoFile: names.mongo.view.file,
   };
 };
 
