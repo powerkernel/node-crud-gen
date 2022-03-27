@@ -1,0 +1,25 @@
+import { MongoDbClient } from "@powerkernel/mongodb-client";
+
+import { {{DeleteEntityMongoRepo}} } from "../";
+
+it("should delete the document from the database", async () => {
+  const repo = new {{DeleteEntityMongoRepo}}();
+
+  // start: mock
+  jest.spyOn(MongoDbClient, "db", "get").mockReturnValue({
+    collection: () => {
+      return {
+        deleteOne: () => {
+          return {
+            deletedCount: 1,
+          };
+        },
+      };
+    },
+  } as never);
+  // end: mock
+
+  const id = "f2901959-b087-4495-92a5-441d9c1efd36";
+  const result = await repo.remove(id);
+  expect(result).toEqual(true);
+});

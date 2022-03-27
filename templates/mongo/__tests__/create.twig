@@ -1,0 +1,28 @@
+import { MongoDbClient } from "@powerkernel/mongodb-client";
+
+import { {{CreateEntityMongoRepo}} } from "../";
+
+it("should insert the DTO as the document into the database", async () => {
+  const repo = new {{CreateEntityMongoRepo}}();
+
+  // start: mock
+  jest.spyOn(MongoDbClient, "db", "get").mockReturnValue({
+    collection: () => {
+      return {
+        insertOne: () => {
+          return {};
+        },
+      };
+    },
+  } as never);
+  // end: mock
+
+  const dto = {
+    id: "f2901959-b087-4495-92a5-441d9c1efd36",
+    title: "this is the title",
+    createdAt: "2022-01-31T10:14:37.535Z",
+    updatedAt: "2022-01-31T10:14:37.535Z",
+  };
+  const result = await repo.insert(dto);
+  expect(result).toEqual(dto);
+});

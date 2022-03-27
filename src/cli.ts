@@ -255,25 +255,40 @@ const generateMongo = (names: Names) => {
   twing.render('create.twig', vars).then((output) => {
     fs.writeFileSync(`./src/repositories/${names.entity.dir}/${names.mongo.create.file}.ts`, output);
   });
+  twing.render('__tests__/create.twig', vars).then((output) => {
+    fs.writeFileSync(`./src/repositories/${names.entity.dir}/__tests__/${names.mongo.create.file}.test.ts`, output);
+  });
 
   // delete
   twing.render('delete.twig', vars).then((output) => {
     fs.writeFileSync(`./src/repositories/${names.entity.dir}/${names.mongo.delete.file}.ts`, output);
+  });
+  twing.render('__tests__/delete.twig', vars).then((output) => {
+    fs.writeFileSync(`./src/repositories/${names.entity.dir}/__tests__/${names.mongo.delete.file}.test.ts`, output);
   });
 
   // list
   twing.render('list.twig', vars).then((output) => {
     fs.writeFileSync(`./src/repositories/${names.entity.dir}/${names.mongo.list.file}.ts`, output);
   });
+  twing.render('__tests__/list.twig', vars).then((output) => {
+    fs.writeFileSync(`./src/repositories/${names.entity.dir}/__tests__/${names.mongo.list.file}.test.ts`, output);
+  });
 
   // update
   twing.render('update.twig', vars).then((output) => {
     fs.writeFileSync(`./src/repositories/${names.entity.dir}/${names.mongo.update.file}.ts`, output);
   });
+  twing.render('__tests__/update.twig', vars).then((output) => {
+    fs.writeFileSync(`./src/repositories/${names.entity.dir}/__tests__/${names.mongo.update.file}.test.ts`, output);
+  });
 
   // view
   twing.render('view.twig', vars).then((output) => {
     fs.writeFileSync(`./src/repositories/${names.entity.dir}/${names.mongo.view.file}.ts`, output);
+  });
+  twing.render('__tests__/view.twig', vars).then((output) => {
+    fs.writeFileSync(`./src/repositories/${names.entity.dir}/__tests__/${names.mongo.view.file}.test.ts`, output);
   });
 
   // inedx

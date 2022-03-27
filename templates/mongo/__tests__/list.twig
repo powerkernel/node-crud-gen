@@ -1,0 +1,189 @@
+import { MongoDbClient } from "@powerkernel/mongodb-client";
+
+import { {{ListEntityMongoRepo}} } from "../";
+
+it("should list the documents from the database", async () => {
+  const repo = new {{ListEntityMongoRepo}}();
+
+  // start: mock
+  jest.spyOn(MongoDbClient, "db", "get").mockReturnValue({
+    collection: () => {
+      return {
+        find: () => {
+          return {
+            sort: () => {
+              return {
+                toArray: () => {
+                  return [
+                    {
+                      _id: MongoDbClient.createUuid(
+                        "f2901959-b087-4495-92a5-441d9c1efd36"
+                      ),
+                      title: "this is the title 1",
+                      createdAt: "2022-01-31T10:14:37.535Z",
+                      updatedAt: "2022-01-31T10:14:37.535Z",
+                    },
+                    {
+                      _id: MongoDbClient.createUuid(
+                        "f2901959-b087-4495-92a5-441d9c1efd37"
+                      ),
+                      title: "this is the title 2",
+                      createdAt: "2022-01-31T10:14:37.535Z",
+                      updatedAt: "2022-01-31T10:14:37.535Z",
+                    },
+                  ];
+                },
+              };
+            },
+          };
+        },
+      };
+    },
+  } as never);
+  // end: mock
+
+  // no filter & sort
+  const result = await repo.find({});
+  expect(result).toEqual([
+    {
+      id: "f2901959-b087-4495-92a5-441d9c1efd36",
+      title: "this is the title 1",
+      createdAt: "2022-01-31T10:14:37.535Z",
+      updatedAt: "2022-01-31T10:14:37.535Z",
+    },
+    {
+      id: "f2901959-b087-4495-92a5-441d9c1efd37",
+      title: "this is the title 2",
+      createdAt: "2022-01-31T10:14:37.535Z",
+      updatedAt: "2022-01-31T10:14:37.535Z",
+    },
+  ]);
+});
+
+it("should  an empty list if no data from the database", async () => {
+  // start: mock
+  jest.spyOn(MongoDbClient, "db", "get").mockReturnValue({
+    collection: () => {
+      return {
+        find: () => {
+          return {
+            sort: () => {
+              return {
+                toArray: () => {
+                  return [];
+                },
+              };
+            },
+          };
+        },
+      };
+    },
+  } as never);
+  // end: mock
+
+  const repo = new {{ListEntityMongoRepo}}();
+  const dto = {};
+  const result = await repo.find(dto);
+  expect(result).toEqual([]);
+});
+
+it("should count the documents from the database", async () => {
+  // start: mock
+  jest.spyOn(MongoDbClient, "db", "get").mockReturnValue({
+    collection: () => {
+      return {
+        countDocuments: () => {
+          return 10;
+        },
+      };
+    },
+  } as never);
+  // end: mock
+
+  const repo = new {{ListEntityMongoRepo}}();
+
+  // no filter
+  const result1 = await repo.count({});
+  expect(result1).toEqual(10);
+
+  // with filter
+  const result2 = await repo.count({ filter: { q: "hello" } });
+  expect(result2).toEqual(10);
+});
+
+it("should return the sorted/filtered documents from the database", async () => {
+  // start: mock
+  jest.spyOn(MongoDbClient, "db", "get").mockReturnValue({
+    collection: () => {
+      return {
+        find: () => {
+          return {
+            sort: () => {
+              return {
+                toArray: () => {
+                  return [
+                    {
+                      _id: MongoDbClient.createUuid(
+                        "f2901959-b087-4495-92a5-441d9c1efd36"
+                      ),
+                      title: "title 2",
+                      createdAt: "2022-01-31T10:14:37.535Z",
+                      updatedAt: "2022-01-31T10:14:37.535Z",
+                    },
+                    {
+                      _id: MongoDbClient.createUuid(
+                        "f2901959-b087-4495-92a5-441d9c1efd37"
+                      ),
+                      title: "title 1",
+                      createdAt: "2022-01-31T10:14:37.535Z",
+                      updatedAt: "2022-01-31T10:14:37.535Z",
+                    },
+                  ];
+                },
+              };
+            },
+          };
+        },
+      };
+    },
+  } as never);
+  // end: mock
+
+  const expectedResult = [
+    {
+      id: "f2901959-b087-4495-92a5-441d9c1efd36",
+      title: "title 2",
+      createdAt: "2022-01-31T10:14:37.535Z",
+      updatedAt: "2022-01-31T10:14:37.535Z",
+    },
+    {
+      id: "f2901959-b087-4495-92a5-441d9c1efd37",
+      title: "title 1",
+      createdAt: "2022-01-31T10:14:37.535Z",
+      updatedAt: "2022-01-31T10:14:37.535Z",
+    },
+  ];
+  const repo = new {{ListEntityMongoRepo}}();
+
+  // perPage < max page, no sort order & filter
+  const result1 = await repo.find({
+    page: 1,
+    perPage: 2,
+    sortField: "title",
+  });
+  expect(result1).toEqual(expectedResult);
+
+  // perpage > max page, with sort order
+  const result2 = await repo.find({
+    page: 1,
+    perPage: 99999,
+    sortField: "title",
+    sortOrder: "desc",
+    filter: {
+      q: "hello",
+      title: "title",
+      id: "f2901959",
+    },
+  });
+  expect(result2).toEqual(expectedResult);
+});

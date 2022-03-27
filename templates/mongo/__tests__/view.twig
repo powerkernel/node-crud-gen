@@ -1,0 +1,47 @@
+import { MongoDbClient } from "@powerkernel/mongodb-client";
+import { Binary } from "mongodb";
+
+import { {{ViewEntityMongoRepo}} } from "../";
+
+it("should load the document from the database", async () => {
+  const repo = new {{ViewEntityMongoRepo}}();
+
+  // start: mock
+  jest.spyOn(MongoDbClient, "db", "get").mockReturnValue({
+    collection: () => {
+      return {
+        findOne: (args: { _id: Binary }) => {
+          if (
+            MongoDbClient.stringifyUuid(args._id) ===
+            "f2901959-b087-4495-92a5-441d9c1efd36"
+          ) {
+            return {
+              _id: MongoDbClient.createUuid(
+                "f2901959-b087-4495-92a5-441d9c1efd36"
+              ),
+              title: "this is the title",
+              createdAt: "2022-01-31T10:14:37.535Z",
+              updatedAt: "2022-01-31T10:14:37.535Z",
+            };
+          } else {
+            return null;
+          }
+        },
+      };
+    },
+  } as never);
+  // end: mock
+
+  // one result
+  const result = await repo.findOne("f2901959-b087-4495-92a5-441d9c1efd36");
+  expect(result).toEqual({
+    id: "f2901959-b087-4495-92a5-441d9c1efd36",
+    title: "this is the title",
+    createdAt: "2022-01-31T10:14:37.535Z",
+    updatedAt: "2022-01-31T10:14:37.535Z",
+  });
+
+  // no result
+  const nullResult = await repo.findOne("00000000-0000-0000-0000-000000000000");
+  expect(nullResult).toEqual(null);
+});
