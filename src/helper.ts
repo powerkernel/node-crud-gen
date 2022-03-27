@@ -259,6 +259,11 @@ const generateTwigVars = (names: Names) => {
     EntityDto: names.dtos.entity.class,
     UpdateEntityDto: names.dtos.update.class,
 
+    CreateEntityDtoFile: names.dtos.create.file,
+    ListEntityDtoFile: names.dtos.list.file,
+    EntityDtoFile: names.dtos.entity.file,
+    UpdateEntityDtoFile: names.dtos.update.file,
+
     // entity
     Entity: names.entity.class,
 

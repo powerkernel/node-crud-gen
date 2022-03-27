@@ -16,64 +16,34 @@ const validateArgs = (args: string[]) => {
 };
 
 const generateDtos = (names: Names) => {
-  let loader = new TwingLoaderFilesystem(`${__dirname}/../templates/dtos`);
-  let twing = new TwingEnvironment(loader);
+  const loader = new TwingLoaderFilesystem(`${__dirname}/../templates/dtos`);
+  const twing = new TwingEnvironment(loader);
+  const vars = generateTwigVars(names);
 
   // entity dto
-  twing.render(`entity.twig`, { Class: names.dtos.entity.class }).then((output) => {
-    try {
-      fs.writeFileSync(`./src/domains/${names.entity.dir}/dtos/${names.dtos.entity.file}.ts`, output);
-    } catch (err) {
-      console.error(err);
-    }
+  twing.render(`entity.twig`, vars).then((output) => {
+    fs.writeFileSync(`./src/domains/${names.entity.dir}/dtos/${names.dtos.entity.file}.ts`, output);
   });
 
   // create entity dto
-  twing.render(`create.twig`, { Class: names.dtos.create.class }).then((output) => {
-    try {
-      fs.writeFileSync(`./src/domains/${names.entity.dir}/dtos/${names.dtos.create.file}.ts`, output);
-    } catch (err) {
-      console.error(err);
-    }
+  twing.render(`create.twig`, vars).then((output) => {
+    fs.writeFileSync(`./src/domains/${names.entity.dir}/dtos/${names.dtos.create.file}.ts`, output);
   });
 
   // list entity dto
-  twing.render(`list.twig`, { Class: names.dtos.list.class, Entity: names.entity.class }).then((output) => {
-    try {
-      fs.writeFileSync(`./src/domains/${names.entity.dir}/dtos/${names.dtos.list.file}.ts`, output);
-    } catch (err) {
-      console.error(err);
-    }
+  twing.render(`list.twig`, vars).then((output) => {
+    fs.writeFileSync(`./src/domains/${names.entity.dir}/dtos/${names.dtos.list.file}.ts`, output);
   });
 
   // update
-  twing.render(`update.twig`, { Class: names.dtos.update.class }).then((output) => {
-    try {
-      fs.writeFileSync(`./src/domains/${names.entity.dir}/dtos/${names.dtos.update.file}.ts`, output);
-    } catch (err) {
-      console.error(err);
-    }
+  twing.render(`update.twig`, vars).then((output) => {
+    fs.writeFileSync(`./src/domains/${names.entity.dir}/dtos/${names.dtos.update.file}.ts`, output);
   });
 
   // index
-  twing
-    .render('index.twig', {
-      EntityDtoClass: names.dtos.entity.class,
-      EntityDtoFile: names.dtos.entity.file,
-      CreateEntityDtoClass: names.dtos.create.class,
-      CreateEntityDtoFile: names.dtos.create.file,
-      UpdateEntityDtoClass: names.dtos.update.class,
-      UpdateEntityDtoFile: names.dtos.update.file,
-      ListEntityDtoClass: names.dtos.list.class,
-      ListEntityDtoFile: names.dtos.list.file,
-    })
-    .then((output) => {
-      try {
-        fs.writeFileSync(`./src/domains/${names.entity.dir}/dtos/index.ts`, output);
-      } catch (err) {
-        console.error(err);
-      }
-    });
+  twing.render('index.twig', vars).then((output) => {
+    fs.writeFileSync(`./src/domains/${names.entity.dir}/dtos/index.ts`, output);
+  });
 };
 
 const generateEntiry = (names: Names) => {
