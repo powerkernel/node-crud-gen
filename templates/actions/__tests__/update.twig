@@ -1,0 +1,89 @@
+import { injectable } from "inversify";
+import container from "../../../../config/container";
+import IDENTIFIERS from "../../../../config/identifiers";
+import { {{UpdateEntityAction}} } from "..";
+import { {{EntityDto}} } from "../../dtos";
+
+it("should perform the update action", async () => {
+  // start: mock
+  container.unbind(IDENTIFIERS.{{UpdateEntityRepo}});
+  container
+    .bind<{{UpdateEntityMockRepo}}>(IDENTIFIERS.{{UpdateEntityRepo}})
+    .to({{UpdateEntityMockRepo}});
+  container.unbind(IDENTIFIERS.{{ViewEntityRepo}});
+  container
+    .bind<{{ViewEntityMockRepo}}>(IDENTIFIERS.{{ViewEntityRepo}})
+    .to({{ViewEntityMockRepo}});
+  // end: mock
+
+  // data
+  const id = "f2901959-b087-4495-92a5-441d9c1efd36";
+
+  const action = container.get<{{UpdateEntityAction}}>(IDENTIFIERS.{{UpdateEntityAction}});
+
+  // test
+  const result = await action.handle({
+    id: id,
+    title: "The new title",
+  });
+  expect(result).toEqual({
+    id: id,
+    title: "The new title",
+    createdAt: "2022-01-31T10:14:37.535Z",
+    updatedAt: "2022-01-31T10:14:37.535Z",
+  });
+
+});
+
+it("should throw an error if the entity is not found", async () => {
+  // start: mock
+  container.unbind(IDENTIFIERS.{{UpdateEntityRepo}});
+  container
+    .bind<{{UpdateEntityMockRepo}}>(IDENTIFIERS.{{UpdateEntityRepo}})
+    .to({{UpdateEntityMockRepo}});
+  container.unbind(IDENTIFIERS.{{ViewEntityRepo}});
+  container
+    .bind<{{ViewEntityMockRepo}}>(IDENTIFIERS.{{ViewEntityRepo}})
+    .to({{ViewEntityMockRepo}});
+  // end: mock
+
+  // data
+  const data = {
+    id: "00000000-0000-0000-0000-000000000000",
+    title: "The new title",
+  };
+
+  // test
+  const action = container.get<{{UpdateEntityAction}}>(IDENTIFIERS.{{UpdateEntityAction}});
+  await expect(action.handle(data)).rejects.toThrow();
+});
+
+/**
+ * Mock Repo
+ */
+@injectable()
+class {{UpdateEntityMockRepo}} {
+  async save(dto: {{EntityDto}}): Promise<{{EntityDto}}> {
+    return {
+      id: "f2901959-b087-4495-92a5-441d9c1efd36",
+      title: dto.title,
+      createdAt: "2022-01-31T10:14:37.535Z",
+      updatedAt: "2022-01-31T10:14:37.535Z",
+    };
+  }
+}
+
+@injectable()
+class {{ViewEntityMockRepo}} {
+  async findOne(id: string): Promise<{{EntityDto}} | null> {
+    if (id === "00000000-0000-0000-0000-000000000000") {
+      return null;
+    }
+    return {
+      id: id,
+      title: "The old title",
+      createdAt: "2022-01-31T10:14:37.535Z",
+      updatedAt: "2022-01-31T10:14:37.535Z",
+    };
+  }
+}

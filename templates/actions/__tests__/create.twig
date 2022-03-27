@@ -1,0 +1,48 @@
+import { injectable } from "inversify";
+import container from "../../../../config/container";
+import IDENTIFIERS from "../../../../config/identifiers";
+import { {{CreateEntityAction}} } from "..";
+import { {{CreateEntityDto}}, {{EntityDto}} } from "../../dtos";
+
+it("should perform the create action", async () => {
+  // start: mock
+  container.unbind(IDENTIFIERS.{{CreateEntityRepo}});
+  container
+    .bind<{{CreateEntityMockRepo}}>(IDENTIFIERS.{{CreateEntityRepo}})
+    .to({{CreateEntityMockRepo}});
+  // end: mock
+
+  // data
+  const data = {
+    title: "The title"
+  };
+
+  // test
+  const action = container.get<{{CreateEntityAction}}>(IDENTIFIERS.{{CreateEntityAction}});
+  const result = await action.handle({
+    title: data.title,
+  });
+
+  // result
+  expect(result).toEqual({
+    id: "f2901959-b087-4495-92a5-441d9c1efd36",
+    title: data.title,
+    createdAt: "2022-01-31T10:14:37.535Z",
+    updatedAt: "2022-01-31T10:14:37.535Z",
+  });
+});
+
+/**
+ * Mock Repo
+ */
+@injectable()
+class {{CreateEntityMockRepo}} {
+  async insert(dto: {{CreateEntityDto}}): Promise<{{EntityDto}}> {
+    return {
+      id: "f2901959-b087-4495-92a5-441d9c1efd36",
+      title: dto.title,
+      createdAt: "2022-01-31T10:14:37.535Z",
+      updatedAt: "2022-01-31T10:14:37.535Z",
+    };
+  }
+}

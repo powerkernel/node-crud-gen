@@ -1,0 +1,59 @@
+import { injectable } from "inversify";
+import container from "../../../../config/container";
+import IDENTIFIERS from "../../../../config/identifiers";
+import { {{ViewEntityAction}} } from "..";
+import { {{EntityDto}} } from "../../dtos";
+
+it("should perform the view action", async () => {
+  // start: mock
+  container.unbind(IDENTIFIERS.{{ViewEntityRepo}});
+  container
+    .bind<{{ViewEntityMockRepo}}>(IDENTIFIERS.{{ViewEntityRepo}})
+    .to({ViewEntityMockRepo});
+  // end: mock
+
+  const id = "f2901959-b087-4495-92a5-441d9c1efd36";
+  const action = container.get<{{ViewEntityAction}}>(IDENTIFIERS.{{ViewEntityAction}});
+
+  // test
+  const result1 = await action.handle(id);
+  expect(result1).toEqual({
+    id: id,
+    title: "The title",
+    createdAt: "2022-01-31T10:14:37.535Z",
+    updatedAt: "2022-01-31T10:14:37.535Z",
+  });
+});
+
+it("should throw an error if the entity is not found", async () => {
+  // start: mock
+  container.unbind(IDENTIFIERS.{{ViewEntityRepo}});
+  container
+    .bind<{{ViewEntityMockRepo}}>(IDENTIFIERS.{{ViewEntityRepo}})
+    .to({{ViewEntityMockRepo}});
+  // end: mock
+
+  const id = "00000000-0000-0000-0000-000000000000";
+
+  // test
+  const action = container.get<{{ViewEntityAction}}>(IDENTIFIERS.{{ViewEntityAction}});
+  await expect(action.handle(id)).rejects.toThrow();
+});
+
+/**
+ * Mock Repo
+ */
+@injectable()
+class {{ViewEntityMockRepo}} {
+  async findOne(id: string): Promise<{{EntityDto}} | null> {
+    if (id === "00000000-0000-0000-0000-000000000000") {
+      return null;
+    }
+    return {
+      id: id,
+      title: "The title",
+      createdAt: "2022-01-31T10:14:37.535Z",
+      updatedAt: "2022-01-31T10:14:37.535Z",
+    };
+  }
+}

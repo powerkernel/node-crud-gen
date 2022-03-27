@@ -21,7 +21,7 @@ class {{Class}} implements {{CreateEntityRepo}} {
       createdAt: dto.createdAt,
       updatedAt: dto.updatedAt,
     } as never;
-    db.collection("{{EntityCollection}}").insertOne(data);
+    await db.collection("{{EntityCollection}}").insertOne(data);
     return dto;
   }
 }

@@ -6,7 +6,7 @@
 
 import fs from 'fs';
 import { TwingEnvironment, TwingLoaderFilesystem } from 'twing';
-import { mkdirs, generateNames, Names } from './helper';
+import { mkdirs, generateNames, generateTwigVars, Names } from './helper';
 
 const validateArgs = (args: string[]) => {
   if (args.length !== 1) {
@@ -20,36 +20,36 @@ const generateDtos = (names: Names) => {
   let twing = new TwingEnvironment(loader);
 
   // entity dto
-  twing.render(`entity-dto.twig`, { Class: names.dtos.entity.class }).then((output) => {
+  twing.render(`entity.twig`, { Class: names.dtos.entity.class }).then((output) => {
     try {
-      fs.writeFileSync(`./src/domains/${names.entity.file}/dtos/${names.dtos.entity.file}.ts`, output);
+      fs.writeFileSync(`./src/domains/${names.entity.dir}/dtos/${names.dtos.entity.file}.ts`, output);
     } catch (err) {
       console.error(err);
     }
   });
 
   // create entity dto
-  twing.render(`create-entity-dto.twig`, { Class: names.dtos.create.class }).then((output) => {
+  twing.render(`create.twig`, { Class: names.dtos.create.class }).then((output) => {
     try {
-      fs.writeFileSync(`./src/domains/${names.entity.file}/dtos/${names.dtos.create.file}.ts`, output);
+      fs.writeFileSync(`./src/domains/${names.entity.dir}/dtos/${names.dtos.create.file}.ts`, output);
     } catch (err) {
       console.error(err);
     }
   });
 
   // list entity dto
-  twing.render(`list-entity-dto.twig`, { Class: names.dtos.list.class, Entity: names.entity.class }).then((output) => {
+  twing.render(`list.twig`, { Class: names.dtos.list.class, Entity: names.entity.class }).then((output) => {
     try {
-      fs.writeFileSync(`./src/domains/${names.entity.file}/dtos/${names.dtos.list.file}.ts`, output);
+      fs.writeFileSync(`./src/domains/${names.entity.dir}/dtos/${names.dtos.list.file}.ts`, output);
     } catch (err) {
       console.error(err);
     }
   });
 
   // update
-  twing.render(`update-entity-dto.twig`, { Class: names.dtos.update.class }).then((output) => {
+  twing.render(`update.twig`, { Class: names.dtos.update.class }).then((output) => {
     try {
-      fs.writeFileSync(`./src/domains/${names.entity.file}/dtos/${names.dtos.update.file}.ts`, output);
+      fs.writeFileSync(`./src/domains/${names.entity.dir}/dtos/${names.dtos.update.file}.ts`, output);
     } catch (err) {
       console.error(err);
     }
@@ -69,7 +69,7 @@ const generateDtos = (names: Names) => {
     })
     .then((output) => {
       try {
-        fs.writeFileSync(`./src/domains/${names.entity.file}/dtos/index.ts`, output);
+        fs.writeFileSync(`./src/domains/${names.entity.dir}/dtos/index.ts`, output);
       } catch (err) {
         console.error(err);
       }
@@ -83,7 +83,7 @@ const generateEntiry = (names: Names) => {
   // entity
   twing.render('entity.twig', { Class: names.entity.class, EntityDto: names.dtos.entity.class }).then((output) => {
     try {
-      fs.writeFileSync(`./src/domains/${names.entity.file}/entities/${names.entity.file}.ts`, output);
+      fs.writeFileSync(`./src/domains/${names.entity.dir}/entities/${names.entity.file}.ts`, output);
     } catch (err) {
       console.error(err);
     }
@@ -92,7 +92,7 @@ const generateEntiry = (names: Names) => {
   // inedx
   twing.render('index.twig', { EntityClass: names.entity.class, EntityFile: names.entity.file }).then((output) => {
     try {
-      fs.writeFileSync(`./src/domains/${names.entity.file}/entities/index.ts`, output);
+      fs.writeFileSync(`./src/domains/${names.entity.dir}/entities/index.ts`, output);
     } catch (err) {
       console.error(err);
     }
@@ -101,7 +101,7 @@ const generateEntiry = (names: Names) => {
   // entity test
   twing.render('__tests__/entity.test.twig', { Class: names.entity.class }).then((output) => {
     try {
-      fs.writeFileSync(`./src/domains/${names.entity.file}/entities/__tests__/${names.entity.file}.test.ts`, output);
+      fs.writeFileSync(`./src/domains/${names.entity.dir}/entities/__tests__/${names.entity.file}.test.ts`, output);
     } catch (err) {
       console.error(err);
     }
@@ -113,20 +113,18 @@ const generateRepos = (names: Names) => {
   let twing = new TwingEnvironment(loader);
 
   // create
-  twing
-    .render('create-entity-repo.twig', { Class: names.repo.create.class, EntityDto: names.dtos.entity.class })
-    .then((output) => {
-      try {
-        fs.writeFileSync(`./src/domains/${names.entity.file}/repositories/${names.repo.create.file}.ts`, output);
-      } catch (err) {
-        console.error(err);
-      }
-    });
+  twing.render('create.twig', { Class: names.repo.create.class, EntityDto: names.dtos.entity.class }).then((output) => {
+    try {
+      fs.writeFileSync(`./src/domains/${names.entity.dir}/repositories/${names.repo.create.file}.ts`, output);
+    } catch (err) {
+      console.error(err);
+    }
+  });
 
   // delete
-  twing.render('delete-entity-repo.twig', { Class: names.repo.delete.class }).then((output) => {
+  twing.render('delete.twig', { Class: names.repo.delete.class }).then((output) => {
     try {
-      fs.writeFileSync(`./src/domains/${names.entity.file}/repositories/${names.repo.delete.file}.ts`, output);
+      fs.writeFileSync(`./src/domains/${names.entity.dir}/repositories/${names.repo.delete.file}.ts`, output);
     } catch (err) {
       console.error(err);
     }
@@ -134,40 +132,36 @@ const generateRepos = (names: Names) => {
 
   // list
   twing
-    .render('list-entity-repo.twig', {
+    .render('list.twig', {
       Class: names.repo.list.class,
       ListEntityDto: names.dtos.list.class,
       EntityDto: names.dtos.entity.class,
     })
     .then((output) => {
       try {
-        fs.writeFileSync(`./src/domains/${names.entity.file}/repositories/${names.repo.list.file}.ts`, output);
+        fs.writeFileSync(`./src/domains/${names.entity.dir}/repositories/${names.repo.list.file}.ts`, output);
       } catch (err) {
         console.error(err);
       }
     });
 
   // update
-  twing
-    .render('update-entity-repo.twig', { Class: names.repo.update.class, EntityDto: names.dtos.entity.class })
-    .then((output) => {
-      try {
-        fs.writeFileSync(`./src/domains/${names.entity.file}/repositories/${names.repo.update.file}.ts`, output);
-      } catch (err) {
-        console.error(err);
-      }
-    });
+  twing.render('update.twig', { Class: names.repo.update.class, EntityDto: names.dtos.entity.class }).then((output) => {
+    try {
+      fs.writeFileSync(`./src/domains/${names.entity.dir}/repositories/${names.repo.update.file}.ts`, output);
+    } catch (err) {
+      console.error(err);
+    }
+  });
 
   // view
-  twing
-    .render('view-entity-repo.twig', { Class: names.repo.view.class, EntityDto: names.dtos.entity.class })
-    .then((output) => {
-      try {
-        fs.writeFileSync(`./src/domains/${names.entity.file}/repositories/${names.repo.view.file}.ts`, output);
-      } catch (err) {
-        console.error(err);
-      }
-    });
+  twing.render('view.twig', { Class: names.repo.view.class, EntityDto: names.dtos.entity.class }).then((output) => {
+    try {
+      fs.writeFileSync(`./src/domains/${names.entity.dir}/repositories/${names.repo.view.file}.ts`, output);
+    } catch (err) {
+      console.error(err);
+    }
+  });
 
   // inedx
   twing
@@ -185,7 +179,7 @@ const generateRepos = (names: Names) => {
     })
     .then((output) => {
       try {
-        fs.writeFileSync(`./src/domains/${names.entity.file}/repositories/index.ts`, output);
+        fs.writeFileSync(`./src/domains/${names.entity.dir}/repositories/index.ts`, output);
       } catch (err) {
         console.error(err);
       }
@@ -193,128 +187,71 @@ const generateRepos = (names: Names) => {
 };
 
 const generateActions = (names: Names) => {
-  let loader = new TwingLoaderFilesystem(`${__dirname}/../templates/actions`);
-  let twing = new TwingEnvironment(loader);
+  const loader = new TwingLoaderFilesystem(`${__dirname}/../templates/actions`);
+  const twing = new TwingEnvironment(loader);
+  const vars = generateTwigVars(names);
 
   // count
-  twing
-    .render('count-entity-action.twig', {
-      Class: names.actions.count.class,
-      ListEntityDto: names.dtos.list.class,
-      ListEntityRepo: names.repo.list.class,
-    })
-    .then((output) => {
-      try {
-        fs.writeFileSync(`./src/domains/${names.entity.file}/actions/${names.actions.count.file}.ts`, output);
-      } catch (err) {
-        console.error(err);
-      }
-    });
+  twing.render('count.twig', vars).then((output) => {
+    fs.writeFileSync(`./src/domains/${names.entity.dir}/actions/${names.actions.count.file}.ts`, output);
+  });
+  twing.render('__tests__/count.twig', vars).then((output) => {
+    fs.writeFileSync(`./src/domains/${names.entity.dir}/actions/__tests__/${names.actions.count.file}.test.ts`, output);
+  });
 
   // create
-  twing
-    .render('create-entity-action.twig', {
-      Class: names.actions.create.class,
-      CreateEntityDto: names.dtos.create.class,
-      EntityDto: names.dtos.entity.class,
-      Entity: names.entity.class,
-      CreateEntityRepo: names.repo.create.class,
-    })
-    .then((output) => {
-      try {
-        fs.writeFileSync(`./src/domains/${names.entity.file}/actions/${names.actions.create.file}.ts`, output);
-      } catch (err) {
-        console.error(err);
-      }
-    });
+  twing.render('create.twig', vars).then((output) => {
+    fs.writeFileSync(`./src/domains/${names.entity.dir}/actions/${names.actions.create.file}.ts`, output);
+  });
+  twing.render('__tests__/create.twig', vars).then((output) => {
+    fs.writeFileSync(
+      `./src/domains/${names.entity.dir}/actions/__tests__/${names.actions.create.file}.test.ts`,
+      output
+    );
+  });
 
   // delete
-  twing
-    .render('delete-entity-action.twig', {
-      Class: names.actions.delete.class,
-      DeleteEntityRepo: names.repo.delete.class,
-    })
-    .then((output) => {
-      try {
-        fs.writeFileSync(`./src/domains/${names.entity.file}/actions/${names.actions.delete.file}.ts`, output);
-      } catch (err) {
-        console.error(err);
-      }
-    });
+  twing.render('delete.twig', vars).then((output) => {
+    fs.writeFileSync(`./src/domains/${names.entity.dir}/actions/${names.actions.delete.file}.ts`, output);
+  });
+  twing.render('__tests__/delete.twig', vars).then((output) => {
+    fs.writeFileSync(
+      `./src/domains/${names.entity.dir}/actions/__tests__/${names.actions.delete.file}.test.ts`,
+      output
+    );
+  });
 
   // list
-  twing
-    .render('list-entity-action.twig', {
-      Class: names.actions.list.class,
-      EntityDto: names.dtos.entity.class,
-      ListEntityDto: names.dtos.list.class,
-      ListEntityRepo: names.repo.list.class,
-    })
-    .then((output) => {
-      try {
-        fs.writeFileSync(`./src/domains/${names.entity.file}/actions/${names.actions.list.file}.ts`, output);
-      } catch (err) {
-        console.error(err);
-      }
-    });
+  twing.render('list.twig', vars).then((output) => {
+    fs.writeFileSync(`./src/domains/${names.entity.dir}/actions/${names.actions.list.file}.ts`, output);
+  });
+  twing.render('__tests__/list.twig', vars).then((output) => {
+    fs.writeFileSync(`./src/domains/${names.entity.dir}/actions/__tests__/${names.actions.list.file}.test.ts`, output);
+  });
 
   // update
-  twing
-    .render('update-entity-action.twig', {
-      Class: names.actions.update.class,
-      Entity: names.entity.class,
-      EntityDto: names.dtos.entity.class,
-      UpdateEntityDto: names.dtos.update.class,
-      UpdateEntityRepo: names.repo.update.class,
-      ViewEntityRepo: names.repo.view.class,
-    })
-    .then((output) => {
-      try {
-        fs.writeFileSync(`./src/domains/${names.entity.file}/actions/${names.actions.update.file}.ts`, output);
-      } catch (err) {
-        console.error(err);
-      }
-    });
+  twing.render('update.twig', vars).then((output) => {
+    fs.writeFileSync(`./src/domains/${names.entity.dir}/actions/${names.actions.update.file}.ts`, output);
+  });
+  twing.render('__tests__/update.twig', vars).then((output) => {
+    fs.writeFileSync(
+      `./src/domains/${names.entity.dir}/actions/__tests__/${names.actions.update.file}.test.ts`,
+      output
+    );
+  });
 
   // view
-  twing
-    .render('view-entity-action.twig', {
-      Class: names.actions.view.class,
-      Entity: names.entity.class,
-      EntityDto: names.dtos.entity.class,
-      ViewEntityRepo: names.repo.view.class,
-    })
-    .then((output) => {
-      try {
-        fs.writeFileSync(`./src/domains/${names.entity.file}/actions/${names.actions.view.file}.ts`, output);
-      } catch (err) {
-        console.error(err);
-      }
-    });
+  twing.render('view.twig', vars).then((output) => {
+    fs.writeFileSync(`./src/domains/${names.entity.dir}/actions/${names.actions.view.file}.ts`, output);
+  });
+  twing.render('__tests__/view.twig', vars).then((output) => {
+    fs.writeFileSync(`./src/domains/${names.entity.dir}/actions/__tests__/${names.actions.view.file}.test.ts`, output);
+  });
 
   // inedx
-  twing
-    .render('index.twig', {
-      CountEntityActionClass: names.actions.count.class,
-      CountEntityActionFile: names.actions.count.file,
-      CreateEntityActionClass: names.actions.create.class,
-      CreateEntityActionFile: names.actions.create.file,
-      DeleteEntityActionClass: names.actions.delete.class,
-      DeleteEntityActionFile: names.actions.delete.file,
-      ListEntityActionClass: names.actions.list.class,
-      ListEntityActionFile: names.actions.list.file,
-      UpdateEntityActionClass: names.actions.update.class,
-      UpdateEntityActionFile: names.actions.update.file,
-      ViewEntityActionClass: names.actions.view.class,
-      ViewEntityActionFile: names.actions.view.file,
-    })
-    .then((output) => {
-      try {
-        fs.writeFileSync(`./src/domains/${names.entity.file}/actions/index.ts`, output);
-      } catch (err) {
-        console.error(err);
-      }
-    });
+  twing.render('index.twig', vars).then((output) => {
+    fs.writeFileSync(`./src/domains/${names.entity.dir}/actions/index.ts`, output);
+  });
 };
 
 const generateControllers = (names: Names) => {
@@ -323,14 +260,14 @@ const generateControllers = (names: Names) => {
 
   // count
   twing
-    .render('count-entity-controller.twig', {
+    .render('count.twig', {
       Class: names.controllers.count.class,
       ListEntityDto: names.dtos.list.class,
       CountEntityAction: names.actions.count.class,
     })
     .then((output) => {
       try {
-        fs.writeFileSync(`./src/domains/${names.entity.file}/controllers/${names.controllers.count.file}.ts`, output);
+        fs.writeFileSync(`./src/domains/${names.entity.dir}/controllers/${names.controllers.count.file}.ts`, output);
       } catch (err) {
         console.error(err);
       }
@@ -338,14 +275,14 @@ const generateControllers = (names: Names) => {
 
   // create
   twing
-    .render('create-entity-controller.twig', {
+    .render('create.twig', {
       Class: names.controllers.create.class,
       CreateEntityDto: names.dtos.create.class,
       CreateEntityAction: names.actions.create.class,
     })
     .then((output) => {
       try {
-        fs.writeFileSync(`./src/domains/${names.entity.file}/controllers/${names.controllers.create.file}.ts`, output);
+        fs.writeFileSync(`./src/domains/${names.entity.dir}/controllers/${names.controllers.create.file}.ts`, output);
       } catch (err) {
         console.error(err);
       }
@@ -353,13 +290,13 @@ const generateControllers = (names: Names) => {
 
   // delete
   twing
-    .render('delete-entity-controller.twig', {
+    .render('delete.twig', {
       Class: names.controllers.delete.class,
       DeleteEntityAction: names.actions.delete.class,
     })
     .then((output) => {
       try {
-        fs.writeFileSync(`./src/domains/${names.entity.file}/controllers/${names.controllers.delete.file}.ts`, output);
+        fs.writeFileSync(`./src/domains/${names.entity.dir}/controllers/${names.controllers.delete.file}.ts`, output);
       } catch (err) {
         console.error(err);
       }
@@ -367,7 +304,7 @@ const generateControllers = (names: Names) => {
 
   // list
   twing
-    .render('list-entity-controller.twig', {
+    .render('list.twig', {
       Class: names.controllers.list.class,
       Entity: names.entity.class,
       ListEntityDto: names.dtos.list.class,
@@ -375,7 +312,7 @@ const generateControllers = (names: Names) => {
     })
     .then((output) => {
       try {
-        fs.writeFileSync(`./src/domains/${names.entity.file}/controllers/${names.controllers.list.file}.ts`, output);
+        fs.writeFileSync(`./src/domains/${names.entity.dir}/controllers/${names.controllers.list.file}.ts`, output);
       } catch (err) {
         console.error(err);
       }
@@ -383,14 +320,14 @@ const generateControllers = (names: Names) => {
 
   // update
   twing
-    .render('update-entity-controller.twig', {
+    .render('update.twig', {
       Class: names.controllers.update.class,
       UpdateEntityDto: names.dtos.update.class,
       UpdateEntityAction: names.actions.update.class,
     })
     .then((output) => {
       try {
-        fs.writeFileSync(`./src/domains/${names.entity.file}/controllers/${names.controllers.update.file}.ts`, output);
+        fs.writeFileSync(`./src/domains/${names.entity.dir}/controllers/${names.controllers.update.file}.ts`, output);
       } catch (err) {
         console.error(err);
       }
@@ -398,13 +335,13 @@ const generateControllers = (names: Names) => {
 
   // view
   twing
-    .render('view-entity-controller.twig', {
+    .render('view.twig', {
       Class: names.controllers.view.class,
       ViewEntityAction: names.actions.view.class,
     })
     .then((output) => {
       try {
-        fs.writeFileSync(`./src/domains/${names.entity.file}/controllers/${names.controllers.view.file}.ts`, output);
+        fs.writeFileSync(`./src/domains/${names.entity.dir}/controllers/${names.controllers.view.file}.ts`, output);
       } catch (err) {
         console.error(err);
       }
@@ -428,7 +365,7 @@ const generateControllers = (names: Names) => {
     })
     .then((output) => {
       try {
-        fs.writeFileSync(`./src/domains/${names.entity.file}/controllers/index.ts`, output);
+        fs.writeFileSync(`./src/domains/${names.entity.dir}/controllers/index.ts`, output);
       } catch (err) {
         console.error(err);
       }

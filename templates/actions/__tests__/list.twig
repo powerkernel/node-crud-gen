@@ -1,0 +1,68 @@
+import { injectable } from "inversify";
+import container from "../../../../config/container";
+import IDENTIFIERS from "../../../../config/identifiers";
+import { {{ListEntityAction}} } from "..";
+import { {{ListEntityDto}}, {{EntityDto}} } from "../../dtos";
+
+it("should perform the list action", async () => {
+  // start: mock
+  container.unbind(IDENTIFIERS.{{ListEntityRepo}});
+  container
+    .bind<{{ListEntityMockRepo}}>(IDENTIFIERS.{{ListEntityRepo}})
+    .to({{ListEntityMockRepo}});
+  // end: mock
+
+  // test
+  const action = container.get<{{ListEntityAction}}>(IDENTIFIERS.{{ListEntityAction}});
+  const result = await action.handle({});
+
+  // result
+  expect(result).toEqual([
+    {
+      id: "f2901959-b087-4495-92a5-441d9c1efd36",
+      title: "title 2",
+      description: "this is the description 2",
+      body: "this is the body 2",
+      createdAt: "2022-01-31T10:14:37.535Z",
+      updatedAt: "2022-01-31T10:14:37.535Z",
+    },
+    {
+      id: "f2901959-b087-4495-92a5-441d9c1efd37",
+      title: "title 1",
+      description: "this is the description 1",
+      body: "this is the body 1",
+      createdAt: "2022-01-31T10:14:37.535Z",
+      updatedAt: "2022-01-31T10:14:37.535Z",
+    },
+  ]);
+});
+
+/**
+ * Mock Repo
+ */
+@injectable()
+class {{ListEntityMockRepo}} {
+  async find(dto: {{ListEntityDto}}): Promise<{{EntityDto}}[] | []> {
+    if (dto.filter?.q === "null") {
+      return [];
+    }
+    return [
+      {
+        id: "f2901959-b087-4495-92a5-441d9c1efd36",
+        title: "title 2",
+        description: "this is the description 2",
+        body: "this is the body 2",
+        createdAt: "2022-01-31T10:14:37.535Z",
+        updatedAt: "2022-01-31T10:14:37.535Z",
+      },
+      {
+        id: "f2901959-b087-4495-92a5-441d9c1efd37",
+        title: "title 1",
+        description: "this is the description 1",
+        body: "this is the body 1",
+        createdAt: "2022-01-31T10:14:37.535Z",
+        updatedAt: "2022-01-31T10:14:37.535Z",
+      },
+    ];
+  }
+}

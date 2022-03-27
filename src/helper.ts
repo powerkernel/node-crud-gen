@@ -6,7 +6,7 @@
 import fs from 'fs';
 
 interface FileClass {
-  file: string;
+  file?: string;
   class: string;
 }
 
@@ -41,6 +41,13 @@ interface Names {
     view: FileClass;
   };
   repo: {
+    create: FileClass;
+    delete: FileClass;
+    list: FileClass;
+    update: FileClass;
+    view: FileClass;
+  };
+  mockRepo: {
     create: FileClass;
     delete: FileClass;
     list: FileClass;
@@ -177,6 +184,23 @@ const generateNames = (entity: string): Names => {
         class: `View${entity}Repo`,
       },
     },
+    mockRepo: {
+      create: {
+        class: `Create${entity}MockRepo`,
+      },
+      delete: {
+        class: `Delete${entity}MockRepo`,
+      },
+      list: {
+        class: `List${entity}MockRepo`,
+      },
+      update: {
+        class: `Update${entity}MockRepo`,
+      },
+      view: {
+        class: `View${entity}MockRepo`,
+      },
+    },
     mongo: {
       create: {
         file: `create-${name}-mongo-repo`,
@@ -202,4 +226,68 @@ const generateNames = (entity: string): Names => {
   };
 };
 
-export { mkdirs, generateNames, Names };
+const generateTwigVars = (names: Names) => {
+  return {
+    // actions
+    CountEntityAction: names.actions.count.class,
+    CreateEntityAction: names.actions.create.class,
+    DeleteEntityAction: names.actions.delete.class,
+    ListEntityAction: names.actions.list.class,
+    UpdateEntityAction: names.actions.update.class,
+    ViewEntityAction: names.actions.view.class,
+
+    CountEntityActionFile: names.actions.count.file,
+    CreateEntityActionFile: names.actions.create.file,
+    DeleteEntityActionFile: names.actions.delete.file,
+    ListEntityActionFile: names.actions.list.file,
+    UpdateEntityActionFile: names.actions.update.file,
+    ViewEntityActionFile: names.actions.view.file,
+
+    // controllers
+    CountEntityController: names.controllers.count.class,
+    CreateEntityController: names.controllers.create.class,
+    DeleteEntityController: names.controllers.delete.class,
+    ListEntityController: names.controllers.list.class,
+    UpdateEntityController: names.controllers.update.class,
+    ViewEntityController: names.controllers.view.class,
+
+    CountEntityControllerFile: names.controllers.count.file,
+    CreateEntityControllerFile: names.controllers.create.file,
+    DeleteEntityControllerFile: names.controllers.delete.file,
+    ListEntityControllerFile: names.controllers.list.file,
+    UpdateEntityControllerFile: names.controllers.update.file,
+    ViewEntityControllerFile: names.controllers.view.file,
+
+    // dtos
+    CreateEntityDto: names.dtos.create.class,
+    ListEntityDto: names.dtos.list.class,
+    EntityDto: names.dtos.entity.class,
+    UpdateEntityDto: names.dtos.update.class,
+
+    // entity
+    Entity: names.entity.class,
+
+    // repo
+    CreateEntityRepo: names.repo.create.class,
+    DeleteEntityRepo: names.repo.delete.class,
+    ListEntityRepo: names.repo.list.class,
+    UpdateEntityRepo: names.repo.update.class,
+    ViewEntityRepo: names.repo.view.class,
+
+    // mock repo
+    CreateEntityMockRepo: names.mockRepo.create.class,
+    DeleteEntityMockRepo: names.mockRepo.delete.class,
+    ListEntityMockRepo: names.mockRepo.list.class,
+    UpdateEntityMockRepo: names.mockRepo.update.class,
+    ViewEntityMockRepo: names.mockRepo.view.class,
+
+    // mongo
+    CreateEntityMongoRepo: names.mongo.create.class,
+    DeleteEntityMongoRepo: names.mongo.delete.class,
+    ListEntityMongoRepo: names.mongo.list.class,
+    UpdateEntityMongoRepo: names.mongo.update.class,
+    ViewEntityMongoRepo: names.mongo.view.class,
+  };
+};
+
+export { mkdirs, generateNames, generateTwigVars, Names };

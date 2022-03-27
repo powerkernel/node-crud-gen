@@ -1,0 +1,31 @@
+import { injectable } from "inversify";
+import container from "../../../../config/container";
+import IDENTIFIERS from "../../../../config/identifiers";
+import { {{CountEntityAction}} } from "..";
+import { {{ListEntityDto}} } from "../../dtos";
+
+it("should perform the count action", async () => {
+  // start: mock
+  container.unbind(IDENTIFIERS.{{ListEntityRepo}});
+  container
+    .bind<{{ListEntityMockRepo}}>(IDENTIFIERS.{{ListEntityRepo}})
+    .to({{ListEntityMockRepo}});
+  // end: mock
+
+  const action = container.get<{{CountEntityAction}}>(IDENTIFIERS.{{CountEntityAction}});
+  const result = await action.handle({});
+  expect(result).toEqual(10);
+});
+
+/**
+ * Mock Repo
+ */
+@injectable()
+class {{ListEntityMockRepo}} {
+  async count(dto: {{ListEntityDto}}): Promise<number> {
+    if (dto === {}) {
+      return 0;
+    }
+    return 10;
+  }
+}
