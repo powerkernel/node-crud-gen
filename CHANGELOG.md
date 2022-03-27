@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.12](https://github.com/powerkernel/node-crud-gen/compare/v0.1.11...v0.1.12) (2022-03-27)
+
+
+### Features
+
+* action tests and twig vars ([ca5fc25](https://github.com/powerkernel/node-crud-gen/commit/ca5fc25745e650996f12ff19457ef6d1ef121ec1))
+* add mongo repo test tpl ([15c2aad](https://github.com/powerkernel/node-crud-gen/commit/15c2aadf1d930521343d0aace88d291b27181426))
+* controller tests and mock names ([d4a6f5b](https://github.com/powerkernel/node-crud-gen/commit/d4a6f5b50348c3f43402010ac64562bd25fd84a5))
+* improve entity tpl ([156798b](https://github.com/powerkernel/node-crud-gen/commit/156798bb31ca59a56688d269c466a80c19e2485c))
+* improve twig vars ([342cae3](https://github.com/powerkernel/node-crud-gen/commit/342cae39f876a71d80376ad6aed56ffe4ba86fd8))
+* improve twig vars ([3114223](https://github.com/powerkernel/node-crud-gen/commit/3114223896a074406725219b845c376a976f8ec2))
+
 ### [0.1.11](https://github.com/powerkernel/node-crud-gen/compare/v0.1.10...v0.1.11) (2022-03-25)
 
 
