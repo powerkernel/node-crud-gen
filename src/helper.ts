@@ -266,6 +266,7 @@ const generateTwigVars = (names: Names) => {
 
     // entity
     Entity: names.entity.class,
+    EntityFile: names.entity.file,
 
     // repo
     CreateEntityRepo: names.repo.create.class,

@@ -2,9 +2,9 @@ import { Entity, Jsonifier } from "@powerkernel/power-common";
 import { {{EntityDto}} } from "../dtos";
 
 /**
- * class {{Class}}
+ * class {{Entity}}
  */
-class {{Class}} extends Entity implements Jsonifier<{{EntityDto}}> {
+class {{Entity}} extends Entity implements Jsonifier<{{EntityDto}}> {
   // private attributes
   private wrappedTitle!: string;
   
@@ -29,7 +29,7 @@ class {{Class}} extends Entity implements Jsonifier<{{EntityDto}}> {
 
   // factory method
   public static create(dto: {{EntityDto}}) {
-    return new {{Class}}(dto);
+    return new {{Entity}}(dto);
   }
 
   // to json
@@ -43,4 +43,4 @@ class {{Class}} extends Entity implements Jsonifier<{{EntityDto}}> {
   }
 }
 
-export default {{Class}};
+export default {{Entity}};
