@@ -1,12 +1,12 @@
 import { Container } from "inversify";
-import IDENTIFIERS from "../../config/identifiers";
+import IDENTIFIERS from "../../../config/identifiers";
 import {
   {{CreateEntityMongoRepo}},
   {{ListEntityMongoRepo}},
   {{UpdateEntityMongoRepo}},
   {{ViewEntityMongoRepo}},
   {{DeleteEntityMongoRepo}}
-} from "../../repositories/{{EntityDir}}";
+} from "../../../repositories/{{EntityDir}}";
 import {
   {{CountEntityAction}},
   {{CreateEntityAction}},
@@ -14,7 +14,7 @@ import {
   {{ListEntityAction}},
   {{UpdateEntityAction}},
   {{ViewEntityAction}},
-} from "./actions";
+} from "./../actions";
 import {
   {{CountEntityController}},
   {{CreateEntityController}},
@@ -22,14 +22,14 @@ import {
   {{ListEntityController}},
   {{UpdateEntityController}},
   {{ViewEntityController}},
-} from "./controllers";
+} from "./../controllers";
 import {
   {{CreateEntityRepo}},
   {{DeleteEntityRepo}},
   {{ListEntityRepo}},
   {{UpdateEntityRepo}},
   {{ViewEntityRepo}},
-} from "./repositories";
+} from "./../repositories";
 
 const bindRepositories = (container: Container) => {
   container.bind<{{CreateEntityRepo}}>(IDENTIFIERS.{{CreateEntityRepo}}).to({{CreateEntityMongoRepo}});
@@ -40,29 +40,12 @@ const bindRepositories = (container: Container) => {
 };
 
 const bindControllers = (container: Container) => {
-  container
-    .bind<{{CreateEntityController}}>(IDENTIFIERS.{{CreateEntityController}})
-    .to({{CreateEntityController}});
-
-  container
-    .bind<{{ListEntityController}}>(IDENTIFIERS.{{ListEntityController}})
-    .to({{ListEntityController}});
-
-  container
-    .bind<{{ViewEntityController}}>(IDENTIFIERS.{{ViewEntityController}})
-    .to({{ViewEntityController}});
-
-  container
-    .bind<{{DeleteEntityController}}>(IDENTIFIERS.{{DeleteEntityController}})
-    .to({{DeleteEntityController}});
-
-  container
-    .bind<{{UpdateEntityController}}>(IDENTIFIERS.{{UpdateEntityController}})
-    .to({{UpdateEntityController}});
-
-  container
-    .bind<{{CountEntityController}}>(IDENTIFIERS.{{CountEntityController}})
-    .to({{CountEntityController}});
+  container.bind<{{CreateEntityController}}>(IDENTIFIERS.{{CreateEntityController}}).to({{CreateEntityController}});
+  container.bind<{{ListEntityController}}>(IDENTIFIERS.{{ListEntityController}}).to({{ListEntityController}});
+  container.bind<{{ViewEntityController}}>(IDENTIFIERS.{{ViewEntityController}}).to({{ViewEntityController}});
+  container.bind<{{DeleteEntityController}}>(IDENTIFIERS.{{DeleteEntityController}}).to({{DeleteEntityController}});
+  container.bind<{{UpdateEntityController}}>(IDENTIFIERS.{{UpdateEntityController}}).to({{UpdateEntityController}});
+  container.bind<{{CountEntityController}}>(IDENTIFIERS.{{CountEntityController}}).to({{CountEntityController}});
 };
 
 const bindActions = (container: Container) => {

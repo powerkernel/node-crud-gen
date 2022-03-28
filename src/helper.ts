@@ -12,6 +12,25 @@ interface FileClassMock {
 }
 
 interface Names {
+  graphql: {
+    query: {
+      entity: string;
+      allEntity: string;
+      allEntityMeta: string;
+    };
+    mutation: {
+      create: string;
+      update: string;
+      delete: string;
+    };
+    type: {
+      entityMetadata: string;
+    };
+    input: {
+      entityFilter: string;
+    };
+  };
+
   entity: {
     file: string;
     class: string;
@@ -65,6 +84,8 @@ const mkdirs = (entity: string) => {
     `./src/domains/${name.toLowerCase()}/controllers/__tests__`,
     `./src/domains/${name.toLowerCase()}/repositories`,
     `./src/domains/${name.toLowerCase()}/actions/__tests__`,
+    `./src/domains/${name.toLowerCase()}/ico`,
+    `./src/domains/${name.toLowerCase()}/graphql`,
     `./src/repositories/${name.toLowerCase()}/__tests__`,
   ];
 
@@ -79,6 +100,25 @@ const generateNames = (entity: string): Names => {
   const name = entity.toLowerCase();
 
   return {
+    graphql: {
+      query: {
+        entity: name,
+        allEntity: `all${entity}s`,
+        allEntityMeta: `_all${entity}sMeta`,
+      },
+      mutation: {
+        create: `create${entity}`,
+        update: `update${entity}`,
+        delete: `delete${entity}`,
+      },
+      type: {
+        entityMetadata: `${entity}Metadata`,
+      },
+      input: {
+        entityFilter: `${entity}Filter`,
+      },
+    },
+
     entity: {
       dir: `${name}`,
       file: `${name}`,
@@ -216,6 +256,18 @@ const generateNames = (entity: string): Names => {
 
 const generateTwigVars = (names: Names) => {
   return {
+    // graphql
+    GqlQueryEntity: names.entity.file,
+    GqlQueryAllEntity: names.graphql.query.allEntity,
+    GqlQueryAllEntityMeta: names.graphql.query.allEntityMeta,
+
+    GqlMutationUpdateEntity: names.graphql.mutation.update,
+    GqlMutationDeleteEntity: names.graphql.mutation.delete,
+    GqlMutationCreateEntity: names.graphql.mutation.create,
+
+    GqlInputEntityFilter: names.graphql.input.entityFilter,
+    GqlTypeEntityMatadata: names.graphql.type.entityMetadata,
+
     // actions
     CountEntityAction: names.actions.count.class,
     CreateEntityAction: names.actions.create.class,

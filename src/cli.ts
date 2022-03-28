@@ -298,80 +298,40 @@ const generateMongo = (names: Names) => {
 };
 
 const generateIco = (names: Names) => {
-  let loader = new TwingLoaderFilesystem(`${__dirname}/../templates/ico`);
-  let twing = new TwingEnvironment(loader);
+  const loader = new TwingLoaderFilesystem(`${__dirname}/../templates/ico`);
+  const twing = new TwingEnvironment(loader);
+  const vars = generateTwigVars(names);
 
-  // ico
-  twing
-    .render('ico.twig', {
-      EntityDir: names.entity.dir,
-      CreateEntityController: names.controllers.create.class,
-      DeleteEntityController: names.controllers.delete.class,
-      ListEntityController: names.controllers.list.class,
-      UpdateEntityController: names.controllers.update.class,
-      ViewEntityController: names.controllers.view.class,
-      CountEntityController: names.controllers.count.class,
-      CreateEntityAction: names.actions.create.class,
-      DeleteEntityAction: names.actions.delete.class,
-      ListEntityAction: names.actions.list.class,
-      UpdateEntityAction: names.actions.update.class,
-      ViewEntityAction: names.actions.view.class,
-      CountEntityAction: names.actions.count.class,
-      CreateEntityRepo: names.repo.create.class,
-      DeleteEntityRepo: names.repo.delete.class,
-      ListEntityRepo: names.repo.list.class,
-      UpdateEntityRepo: names.repo.update.class,
-      ViewEntityRepo: names.repo.view.class,
-      CreateEntityMongoRepo: names.mongo.create.class,
-      ListEntityMongoRepo: names.mongo.list.class,
-      UpdateEntityMongoRepo: names.mongo.update.class,
-      ViewEntityMongoRepo: names.mongo.view.class,
-      DeleteEntityMongoRepo: names.mongo.delete.class,
-    })
-    .then((output) => {
-      try {
-        fs.writeFileSync(`./src/domains/${names.entity.dir}/ico.ts`, output);
-      } catch (err) {
-        console.error(err);
-      }
-    });
+  // binding
+  twing.render('binding.twig', vars).then((output) => {
+    fs.writeFileSync(`./src/domains/${names.entity.dir}/ico/binding.ts`, output);
+  });
 
   // identifiers
-  twing
-    .render('identifiers.twig', {
-      CreateEntityController: names.controllers.create.class,
-      DeleteEntityController: names.controllers.delete.class,
-      ListEntityController: names.controllers.list.class,
-      UpdateEntityController: names.controllers.update.class,
-      ViewEntityController: names.controllers.view.class,
-      CountEntityController: names.controllers.count.class,
+  twing.render('identifiers.twig', vars).then((output) => {
+    fs.writeFileSync(`./src/domains/${names.entity.dir}/ico/identifiers.ts`, output);
+  });
+};
 
-      CreateEntityAction: names.actions.create.class,
-      DeleteEntityAction: names.actions.delete.class,
-      ListEntityAction: names.actions.list.class,
-      UpdateEntityAction: names.actions.update.class,
-      ViewEntityAction: names.actions.view.class,
-      CountEntityAction: names.actions.count.class,
+const generateGql = (names: Names) => {
+  const loader = new TwingLoaderFilesystem(`${__dirname}/../templates/graphql`);
+  const twing = new TwingEnvironment(loader);
+  const vars = generateTwigVars(names);
 
-      CreateEntityRepo: names.repo.create.class,
-      DeleteEntityRepo: names.repo.delete.class,
-      ListEntityRepo: names.repo.list.class,
-      UpdateEntityRepo: names.repo.update.class,
-      ViewEntityRepo: names.repo.view.class,
+  // resolvers
+  twing.render('resolvers.twig', vars).then((output) => {
+    fs.writeFileSync(`./src/domains/${names.entity.dir}/graphql/resolvers.ts`, output);
+  });
 
-      CreateEntityMongoRepo: names.mongo.create.class,
-      ListEntityMongoRepo: names.mongo.list.class,
-      UpdateEntityMongoRepo: names.mongo.update.class,
-      ViewEntityMongoRepo: names.mongo.view.class,
-      DeleteEntityMongoRepo: names.mongo.delete.class,
-    })
-    .then((output) => {
-      try {
-        fs.writeFileSync(`./src/domains/${names.entity.dir}/identifiers.ts`, output);
-      } catch (err) {
-        console.error(err);
-      }
-    });
+  // typeDefs
+  twing.render('typeDefs.twig', vars).then((output) => {
+    fs.writeFileSync(`./src/domains/${names.entity.dir}/graphql/typeDefs.ts`, output);
+  });
+
+  // index
+  twing.render('index.twig', vars).then((output) => {
+    fs.writeFileSync(`./src/domains/${names.entity.dir}/graphql/index.ts`, output);
+  });
 };
 
 const cli = async (): Promise<void> => {
@@ -406,6 +366,9 @@ const cli = async (): Promise<void> => {
 
   // IoC
   generateIco(names);
+
+  // graphql
+  generateGql(names);
 };
 
 export default cli;

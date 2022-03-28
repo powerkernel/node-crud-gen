@@ -1,0 +1,80 @@
+import container from "../../../config/container";
+import IDENTIFIERS from "../../../config/identifiers";
+import {
+  {{CountEntityController}},
+  {{CreateEntityController}},
+  {{DeleteEntityController}},
+  {{ListEntityController}},
+  {{UpdateEntityController}},
+  {{ViewEntityController}},
+} from "../controllers";
+import { {{ListEntityDto}} } from "../dtos";
+
+export default {
+  Query: {
+    {{GqlQueryAllEntity}}: async (_parent: unknown, args: {{ListEntityDto}}) => {
+      const ctl = container.get<{{ListEntityController}}>(
+        IDENTIFIERS.{{ListEntityController}}
+      );
+      return await ctl.execute(args);
+    },
+
+    {{GqlQueryAllEntityMeta}}: async (_parent: unknown, args: {{ListEntityDto}}) => {
+      const ctl = container.get<{{CountEntityController}}>(
+        IDENTIFIERS.{{CountEntityController}}
+      );
+      return await ctl.execute(args);
+    },
+
+    {{GqlQueryEntity}}: async (
+      _parent: unknown,
+      args: {
+        id: string;
+      }
+    ) => {
+      const ctl = container.get<{{ViewEntityController}}>(
+        IDENTIFIERS.{{ViewEntityController}}
+      );
+      return await ctl.execute(args.id);
+    },
+  },
+
+  Mutation: {
+    {{GqlMutationCreateEntity}}: async (
+      _parent: unknown,
+      args: {
+        title: string;
+      }
+    ) => {
+      const ctl = container.get<{{CreateEntityController}}>(
+        IDENTIFIERS.{{CreateEntityController}}
+      );
+      return await ctl.execute(args);
+    },
+
+    {{GqlMutationUpdateEntity}}: async (
+      _parent: unknown,
+      args: {
+        id: string;
+        title?: string;
+      }
+    ) => {
+      const ctl = container.get<{{UpdateEntityController}}>(
+        IDENTIFIERS.{{UpdateEntityController}}
+      );
+      return await ctl.execute(args);
+    },
+
+    {{GqlMutationDeleteEntity}}: async (
+      _parent: unknown,
+      args: {
+        id: string;
+      }
+    ) => {
+      const ctl = container.get<{{DeleteEntityController}}>(
+        IDENTIFIERS.{{DeleteEntityController}}
+      );
+      return await ctl.execute(args.id);
+    },
+  },
+};
