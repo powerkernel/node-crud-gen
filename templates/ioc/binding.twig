@@ -57,4 +57,10 @@ const bindActions = (container: Container) => {
   container.bind<{{CountEntityAction}}>(IDENTIFIERS.{{CountEntityAction}}).to({{CountEntityAction}});
 };
 
-export { bindRepositories, bindControllers, bindActions };
+const binding = (container: Container) => {
+  bindRepositories(container);
+  bindActions(container);
+  bindControllers(container);
+};
+
+export default binding;

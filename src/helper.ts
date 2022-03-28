@@ -84,7 +84,7 @@ const mkdirs = (entity: string) => {
     `./src/domains/${name.toLowerCase()}/controllers/__tests__`,
     `./src/domains/${name.toLowerCase()}/repositories`,
     `./src/domains/${name.toLowerCase()}/actions/__tests__`,
-    `./src/domains/${name.toLowerCase()}/ico`,
+    `./src/domains/${name.toLowerCase()}/ioc`,
     `./src/domains/${name.toLowerCase()}/graphql`,
     `./src/repositories/${name.toLowerCase()}/__tests__`,
   ];

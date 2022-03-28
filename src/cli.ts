@@ -297,19 +297,19 @@ const generateMongo = (names: Names) => {
   });
 };
 
-const generateIco = (names: Names) => {
-  const loader = new TwingLoaderFilesystem(`${__dirname}/../templates/ico`);
+const generateIoC = (names: Names) => {
+  const loader = new TwingLoaderFilesystem(`${__dirname}/../templates/ioc`);
   const twing = new TwingEnvironment(loader);
   const vars = generateTwigVars(names);
 
   // binding
   twing.render('binding.twig', vars).then((output) => {
-    fs.writeFileSync(`./src/domains/${names.entity.dir}/ico/binding.ts`, output);
+    fs.writeFileSync(`./src/domains/${names.entity.dir}/ioc/binding.ts`, output);
   });
 
   // identifiers
   twing.render('identifiers.twig', vars).then((output) => {
-    fs.writeFileSync(`./src/domains/${names.entity.dir}/ico/identifiers.ts`, output);
+    fs.writeFileSync(`./src/domains/${names.entity.dir}/ioc/identifiers.ts`, output);
   });
 };
 
@@ -365,7 +365,7 @@ const cli = async (): Promise<void> => {
   generateMongo(names);
 
   // IoC
-  generateIco(names);
+  generateIoC(names);
 
   // graphql
   generateGql(names);
