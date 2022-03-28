@@ -22,7 +22,7 @@ export default gql`
   }
 
   extend type Mutation {
-    {{GqlMutationCreatentity}}(title: String!): {{Entity}}
+    {{GqlMutationCreateEntity}}(title: String!): {{Entity}}
     {{GqlMutationUpdateEntity}}(id: ID, title: String): {{Entity}}
     {{GqlMutationDeleteEntity}}(id: String!): Boolean
   }
