@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.14](https://github.com/powerkernel/node-crud-gen/compare/v0.1.13...v0.1.14) (2022-03-28)
+
+
+### Features
+
+* gql template ([dbb2dfb](https://github.com/powerkernel/node-crud-gen/commit/dbb2dfb7cf9bf54d827acce3b03c0bb5843aba0c))
+
 ### [0.1.13](https://github.com/powerkernel/node-crud-gen/compare/v0.1.12...v0.1.13) (2022-03-27)
 
 
