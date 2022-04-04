@@ -4,6 +4,7 @@
  * @copyright Copyright (c) 2022 npmPower Kernel
  */
 import fs from 'fs';
+import * as changeCase from 'change-case';
 
 interface FileClassMock {
   class: string;
@@ -77,16 +78,16 @@ interface Names {
 }
 
 const mkdirs = (entity: string) => {
-  const name = entity.toLowerCase();
+  const kebabCaseName = changeCase.paramCase(entity);
   const dirs = [
-    `./src/domains/${name.toLowerCase()}/entities/__tests__`,
-    `./src/domains/${name.toLowerCase()}/dtos`,
-    `./src/domains/${name.toLowerCase()}/controllers/__tests__`,
-    `./src/domains/${name.toLowerCase()}/repositories`,
-    `./src/domains/${name.toLowerCase()}/actions/__tests__`,
-    `./src/domains/${name.toLowerCase()}/ioc`,
-    `./src/domains/${name.toLowerCase()}/graphql`,
-    `./src/repositories/${name.toLowerCase()}/__tests__`,
+    `./src/domains/${kebabCaseName}/entities/__tests__`,
+    `./src/domains/${kebabCaseName}/dtos`,
+    `./src/domains/${kebabCaseName}/controllers/__tests__`,
+    `./src/domains/${kebabCaseName}/repositories`,
+    `./src/domains/${kebabCaseName}/actions/__tests__`,
+    `./src/domains/${kebabCaseName}/ioc`,
+    `./src/domains/${kebabCaseName}/graphql`,
+    `./src/repositories/${kebabCaseName}/__tests__`,
   ];
 
   dirs.forEach((dir) => {
@@ -97,157 +98,160 @@ const mkdirs = (entity: string) => {
 };
 
 const generateNames = (entity: string): Names => {
-  const name = entity.toLowerCase();
+  const kebabCaseName = changeCase.paramCase(entity); // kebab-case-name
+  const pascalCaseName = changeCase.pascalCase(entity); // PascalCaseName
+  const snakeCaseName = changeCase.snakeCase(entity); // kebab_case_name
+  const camelCaseName = changeCase.camelCase(entity); // camelCaseName
 
   return {
     graphql: {
       query: {
-        entity: name,
-        allEntity: `all${entity}s`,
-        allEntityMeta: `_all${entity}sMeta`,
+        entity: camelCaseName,
+        allEntity: `all${pascalCaseName}s`,
+        allEntityMeta: `_all${pascalCaseName}sMeta`,
       },
       mutation: {
-        create: `create${entity}`,
-        update: `update${entity}`,
-        delete: `delete${entity}`,
+        create: `create${pascalCaseName}`,
+        update: `update${pascalCaseName}`,
+        delete: `delete${pascalCaseName}`,
       },
       type: {
-        entityMetadata: `${entity}Metadata`,
+        entityMetadata: `${pascalCaseName}Metadata`,
       },
       input: {
-        entityFilter: `${entity}Filter`,
+        entityFilter: `${pascalCaseName}Filter`,
       },
     },
 
     entity: {
-      dir: `${name}`,
-      file: `${name}`,
+      dir: kebabCaseName,
+      file: kebabCaseName,
       class: entity,
-      collection: `${name}s`,
-      table: `${name}s`,
+      collection: `${snakeCaseName}s`,
+      table: `${snakeCaseName}s`,
     },
     dtos: {
       entity: {
-        file: `${name}-dto`,
+        file: `${kebabCaseName}-dto`,
         class: `${entity}Dto`,
       },
       create: {
-        file: `create-${name}-dto`,
+        file: `create-${kebabCaseName}-dto`,
         class: `Create${entity}Dto`,
       },
       list: {
-        file: `list-${name}-dto`,
+        file: `list-${kebabCaseName}-dto`,
         class: `List${entity}Dto`,
       },
       update: {
-        file: `update-${name}-dto`,
+        file: `update-${kebabCaseName}-dto`,
         class: `Update${entity}Dto`,
       },
     },
     controllers: {
       count: {
-        file: `count-${name}-controller`,
+        file: `count-${kebabCaseName}-controller`,
         class: `Count${entity}Controller`,
       },
       create: {
-        file: `create-${name}-controller`,
+        file: `create-${kebabCaseName}-controller`,
         class: `Create${entity}Controller`,
       },
       delete: {
-        file: `delete-${name}-controller`,
+        file: `delete-${kebabCaseName}-controller`,
         class: `Delete${entity}Controller`,
       },
       list: {
-        file: `list-${name}-controller`,
+        file: `list-${kebabCaseName}-controller`,
         class: `List${entity}Controller`,
       },
       update: {
-        file: `update-${name}-controller`,
+        file: `update-${kebabCaseName}-controller`,
         class: `Update${entity}Controller`,
       },
       view: {
-        file: `view-${name}-controller`,
+        file: `view-${kebabCaseName}-controller`,
         class: `View${entity}Controller`,
       },
     },
     actions: {
       count: {
-        file: `count-${name}-action`,
+        file: `count-${kebabCaseName}-action`,
         class: `Count${entity}Action`,
         mock: `Count${entity}MockAction`,
       },
       create: {
-        file: `create-${name}-action`,
+        file: `create-${kebabCaseName}-action`,
         class: `Create${entity}Action`,
         mock: `Create${entity}MockAction`,
       },
       delete: {
-        file: `delete-${name}-action`,
+        file: `delete-${kebabCaseName}-action`,
         class: `Delete${entity}Action`,
         mock: `Delete${entity}MockAction`,
       },
       list: {
-        file: `list-${name}-action`,
+        file: `list-${kebabCaseName}-action`,
         class: `List${entity}Action`,
         mock: `List${entity}MockAction`,
       },
       update: {
-        file: `update-${name}-action`,
+        file: `update-${kebabCaseName}-action`,
         class: `Update${entity}Action`,
         mock: `Update${entity}MockAction`,
       },
       view: {
-        file: `view-${name}-action`,
+        file: `view-${kebabCaseName}-action`,
         class: `View${entity}Action`,
         mock: `View${entity}MockAction`,
       },
     },
     repo: {
       create: {
-        file: `create-${name}-repo`,
+        file: `create-${kebabCaseName}-repo`,
         class: `Create${entity}Repo`,
         mock: `Create${entity}MockRepo`,
       },
       delete: {
-        file: `delete-${name}-repo`,
+        file: `delete-${kebabCaseName}-repo`,
         class: `Delete${entity}Repo`,
         mock: `Delete${entity}MockRepo`,
       },
       list: {
-        file: `list-${name}-repo`,
+        file: `list-${kebabCaseName}-repo`,
         class: `List${entity}Repo`,
         mock: `List${entity}MockRepo`,
       },
       update: {
-        file: `update-${name}-repo`,
+        file: `update-${kebabCaseName}-repo`,
         class: `Update${entity}Repo`,
         mock: `Update${entity}MockRepo`,
       },
       view: {
-        file: `view-${name}-repo`,
+        file: `view-${kebabCaseName}-repo`,
         class: `View${entity}Repo`,
         mock: `View${entity}MockRepo`,
       },
     },
     mongo: {
       create: {
-        file: `create-${name}-mongo-repo`,
+        file: `create-${kebabCaseName}-mongo-repo`,
         class: `Create${entity}MongoRepo`,
       },
       delete: {
-        file: `delete-${name}-mongo-repo`,
+        file: `delete-${kebabCaseName}-mongo-repo`,
         class: `Delete${entity}MongoRepo`,
       },
       list: {
-        file: `list-${name}-mongo-repo`,
+        file: `list-${kebabCaseName}-mongo-repo`,
         class: `List${entity}MongoRepo`,
       },
       update: {
-        file: `update-${name}-mongo-repo`,
+        file: `update-${kebabCaseName}-mongo-repo`,
         class: `Update${entity}MongoRepo`,
       },
       view: {
-        file: `view-${name}-mongo-repo`,
+        file: `view-${kebabCaseName}-mongo-repo`,
         class: `View${entity}MongoRepo`,
       },
     },
@@ -257,7 +261,7 @@ const generateNames = (entity: string): Names => {
 const generateTwigVars = (names: Names) => {
   return {
     // graphql
-    GqlQueryEntity: names.entity.file,
+    GqlQueryEntity: names.graphql.query.entity,
     GqlQueryAllEntity: names.graphql.query.allEntity,
     GqlQueryAllEntityMeta: names.graphql.query.allEntityMeta,
 

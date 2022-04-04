@@ -13,7 +13,7 @@
     "templates"
   ],
   "scripts": {
-    "dev": "npm run clean && tsc && node lib/index.js Post",
+    "dev": "npm run clean && tsc && node lib/index.js BlogPost",
     "release": "npx standard-version && git push --follow-tags origin main",
     "clean": "del ./lib/* && del ./src/domains && del ./src/repositories",
     "build": "npm run clean && tsc",
@@ -23,6 +23,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "change-case": "^4.1.2",
     "twing": "^5.1.0"
   },
   "devDependencies": {
