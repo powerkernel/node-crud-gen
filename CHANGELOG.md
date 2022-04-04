@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.18](https://github.com/powerkernel/node-crud-gen/compare/v0.1.17...v0.1.18) (2022-04-04)
+
+
+### Features
+
+* improve naming ([2801815](https://github.com/powerkernel/node-crud-gen/commit/28018156c6dd12c47efbbd01ede02a54b71123de))
+
 ### [0.1.17](https://github.com/powerkernel/node-crud-gen/compare/v0.1.16...v0.1.17) (2022-03-28)
 
 
