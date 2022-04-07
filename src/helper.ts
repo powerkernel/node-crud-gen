@@ -126,133 +126,133 @@ const generateNames = (entity: string): Names => {
     entity: {
       dir: kebabCaseName,
       file: kebabCaseName,
-      class: entity,
+      class: pascalCaseName,
       collection: `${snakeCaseName}s`,
       table: `${snakeCaseName}s`,
     },
     dtos: {
       entity: {
         file: `${kebabCaseName}-dto`,
-        class: `${entity}Dto`,
+        class: `${pascalCaseName}Dto`,
       },
       create: {
         file: `create-${kebabCaseName}-dto`,
-        class: `Create${entity}Dto`,
+        class: `Create${pascalCaseName}Dto`,
       },
       list: {
         file: `list-${kebabCaseName}-dto`,
-        class: `List${entity}Dto`,
+        class: `List${pascalCaseName}Dto`,
       },
       update: {
         file: `update-${kebabCaseName}-dto`,
-        class: `Update${entity}Dto`,
+        class: `Update${pascalCaseName}Dto`,
       },
     },
     controllers: {
       count: {
         file: `count-${kebabCaseName}-controller`,
-        class: `Count${entity}Controller`,
+        class: `Count${pascalCaseName}Controller`,
       },
       create: {
         file: `create-${kebabCaseName}-controller`,
-        class: `Create${entity}Controller`,
+        class: `Create${pascalCaseName}Controller`,
       },
       delete: {
         file: `delete-${kebabCaseName}-controller`,
-        class: `Delete${entity}Controller`,
+        class: `Delete${pascalCaseName}Controller`,
       },
       list: {
         file: `list-${kebabCaseName}-controller`,
-        class: `List${entity}Controller`,
+        class: `List${pascalCaseName}Controller`,
       },
       update: {
         file: `update-${kebabCaseName}-controller`,
-        class: `Update${entity}Controller`,
+        class: `Update${pascalCaseName}Controller`,
       },
       view: {
         file: `view-${kebabCaseName}-controller`,
-        class: `View${entity}Controller`,
+        class: `View${pascalCaseName}Controller`,
       },
     },
     actions: {
       count: {
         file: `count-${kebabCaseName}-action`,
-        class: `Count${entity}Action`,
-        mock: `Count${entity}MockAction`,
+        class: `Count${pascalCaseName}Action`,
+        mock: `Count${pascalCaseName}MockAction`,
       },
       create: {
         file: `create-${kebabCaseName}-action`,
-        class: `Create${entity}Action`,
-        mock: `Create${entity}MockAction`,
+        class: `Create${pascalCaseName}Action`,
+        mock: `Create${pascalCaseName}MockAction`,
       },
       delete: {
         file: `delete-${kebabCaseName}-action`,
-        class: `Delete${entity}Action`,
-        mock: `Delete${entity}MockAction`,
+        class: `Delete${pascalCaseName}Action`,
+        mock: `Delete${pascalCaseName}MockAction`,
       },
       list: {
         file: `list-${kebabCaseName}-action`,
-        class: `List${entity}Action`,
-        mock: `List${entity}MockAction`,
+        class: `List${pascalCaseName}Action`,
+        mock: `List${pascalCaseName}MockAction`,
       },
       update: {
         file: `update-${kebabCaseName}-action`,
-        class: `Update${entity}Action`,
-        mock: `Update${entity}MockAction`,
+        class: `Update${pascalCaseName}Action`,
+        mock: `Update${pascalCaseName}MockAction`,
       },
       view: {
         file: `view-${kebabCaseName}-action`,
-        class: `View${entity}Action`,
-        mock: `View${entity}MockAction`,
+        class: `View${pascalCaseName}Action`,
+        mock: `View${pascalCaseName}MockAction`,
       },
     },
     repo: {
       create: {
         file: `create-${kebabCaseName}-repo`,
-        class: `Create${entity}Repo`,
-        mock: `Create${entity}MockRepo`,
+        class: `Create${pascalCaseName}Repo`,
+        mock: `Create${pascalCaseName}MockRepo`,
       },
       delete: {
         file: `delete-${kebabCaseName}-repo`,
-        class: `Delete${entity}Repo`,
-        mock: `Delete${entity}MockRepo`,
+        class: `Delete${pascalCaseName}Repo`,
+        mock: `Delete${pascalCaseName}MockRepo`,
       },
       list: {
         file: `list-${kebabCaseName}-repo`,
-        class: `List${entity}Repo`,
-        mock: `List${entity}MockRepo`,
+        class: `List${pascalCaseName}Repo`,
+        mock: `List${pascalCaseName}MockRepo`,
       },
       update: {
         file: `update-${kebabCaseName}-repo`,
-        class: `Update${entity}Repo`,
-        mock: `Update${entity}MockRepo`,
+        class: `Update${pascalCaseName}Repo`,
+        mock: `Update${pascalCaseName}MockRepo`,
       },
       view: {
         file: `view-${kebabCaseName}-repo`,
-        class: `View${entity}Repo`,
-        mock: `View${entity}MockRepo`,
+        class: `View${pascalCaseName}Repo`,
+        mock: `View${pascalCaseName}MockRepo`,
       },
     },
     mongo: {
       create: {
         file: `create-${kebabCaseName}-mongo-repo`,
-        class: `Create${entity}MongoRepo`,
+        class: `Create${pascalCaseName}MongoRepo`,
       },
       delete: {
         file: `delete-${kebabCaseName}-mongo-repo`,
-        class: `Delete${entity}MongoRepo`,
+        class: `Delete${pascalCaseName}MongoRepo`,
       },
       list: {
         file: `list-${kebabCaseName}-mongo-repo`,
-        class: `List${entity}MongoRepo`,
+        class: `List${pascalCaseName}MongoRepo`,
       },
       update: {
         file: `update-${kebabCaseName}-mongo-repo`,
-        class: `Update${entity}MongoRepo`,
+        class: `Update${pascalCaseName}MongoRepo`,
       },
       view: {
         file: `view-${kebabCaseName}-mongo-repo`,
-        class: `View${entity}MongoRepo`,
+        class: `View${pascalCaseName}MongoRepo`,
       },
     },
   };
