@@ -1,23 +1,34 @@
 /* npm imports */
 import { injectable } from "inversify";
 import { MongoDbClient } from "@powerkernel/mongodb-client";
+import { Binary } from "mongodb";
 
 /* type imports */
 import type { {{DeleteEntityRepo}} } from "../../domains/{{EntityDir}}/repositories";
+import { {{EntityDto}} } from "../../domains/{{EntityDir}}/dtos";
 
 /**
  * class {{DeleteEntityMongoRepo}}
  */
 @injectable()
 class {{DeleteEntityMongoRepo}} implements {{DeleteEntityRepo}} {
-  async remove(id: string): Promise<boolean> {
+  async remove(id: string): Promise<{{EntityDto}} | null> {
     const db = MongoDbClient.db;
 
     const result = await db
       .collection("{{EntityCollection}}")
-      .deleteOne({ _id: MongoDbClient.createUuid(id) });
+      .findOneAndDelete({ _id: MongoDbClient.createUuid(id) });
 
-    return result.deletedCount === 1;
+    if (result.value !== null) {
+      const item = result.value;
+      return {
+        id: MongoDbClient.stringifyUuid(item._id as unknown as Binary),
+        title: item.title,
+        createdAt: item.createdAt,
+        updatedAt: item.updatedAt,
+      };
+    }
+    return null;
   }
 }
 

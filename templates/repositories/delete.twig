@@ -1,5 +1,7 @@
+import { {{EntityDto}} } from "../dtos";
+
 interface {{UpdateEntityRepo}} {
-  remove(id: string): Promise<boolean>;
+  remove(id: string): Promise<{{EntityDto}} | null>;
 }
 
 export default {{UpdateEntityRepo}};

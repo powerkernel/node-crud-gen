@@ -19,7 +19,9 @@ class {{DeleteEntityController}} {
   }
 
   async execute(id: string) {
-    return await this.action.handle(id);
+    return {
+      data: await this.action.handle(id),
+    };
   }
 }
 

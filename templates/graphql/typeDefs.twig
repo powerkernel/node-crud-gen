@@ -3,7 +3,6 @@ import { gql } from "apollo-server-express";
 export default gql`
   extend type Query {
     {{GqlQueryEntity}}(id: String!): {{Entity}}EntityResponse
-
     {{GqlQueryEntities}}(
       page: Int
       perPage: Int
@@ -11,13 +10,12 @@ export default gql`
       sortOrder: String
       filter: {{GqlInputEntityFilter}}
     ): {{Entity}}EntityResponseCollection
-
   }
 
   extend type Mutation {
     {{GqlMutationCreateEntity}}(title: String!): {{Entity}}EntityResponse
     {{GqlMutationUpdateEntity}}(id: ID, title: String): {{Entity}}EntityResponse
-    {{GqlMutationDeleteEntity}}(id: String!): Boolean
+    {{GqlMutationDeleteEntity}}(id: String!): {{Entity}}EntityResponse
   }
 
   type {{Entity}}Entity {

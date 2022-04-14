@@ -20,7 +20,9 @@ class {{CreateEntityController}} {
   }
 
   async execute(dto: {{CreateEntityDto}}) {
-    return await this.action.handle(dto);
+    return {
+      data: await this.action.handle(dto),
+    };
   }
 }
 

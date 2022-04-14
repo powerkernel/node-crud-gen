@@ -3,6 +3,7 @@ import { inject, injectable } from "inversify";
 
 /* local imports */
 import IDENTIFIERS from "../../../config/identifiers";
+import { {{EntityDto}} } from "../dtos";
 
 /* type imports */
 import type { {{DeleteEntityRepo}} } from "../repositories";
@@ -21,7 +22,7 @@ class {{DeleteEntityAction}} {
     this.repo = repo;
   }
 
-  public async handle(id: string): Promise<boolean> {
+  public async handle(id: string): Promise<{{EntityDto}} | null> {
     return await this.repo.remove(id);
   }
 }
