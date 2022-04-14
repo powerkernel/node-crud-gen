@@ -50,7 +50,7 @@ class {{ListEntityController}} {
     return {
       page: page,
       pageCount: Math.ceil(total / pageSize),
-      pageSize: pageSize > pageSizeConf.max ? pageSizeConf.max : pageSize,
+      pageSize: pageSize,
       total: total,
     };
   }
