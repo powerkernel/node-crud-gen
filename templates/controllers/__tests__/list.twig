@@ -37,6 +37,60 @@ it("should invoke the list action", async () => {
   ]);
 });
 
+it("should generate the pagination info", async () => {
+  // start: mock
+  container.unbind(IDENTIFIERS.{{ListEntityAction}});
+  container.unbind(IDENTIFIERS.{{CountEntityAction}});
+  container
+    .bind<{{ListEntityMockAction}}>(IDENTIFIERS.{{ListEntityAction}})
+    .to({{ListEntityMockAction}});
+  container
+    .bind<{{CountEntityMockAction}}>(IDENTIFIERS.{{CountEntityAction}})
+    .to({{CountEntityMockAction}});  
+  // end: mock
+
+  const controller = container.get<{{ListEntityController}}>(
+    IDENTIFIERS.{{ListEntityController}}
+  );
+
+  // default
+  const { meta: meta1 } = await controller.execute({});
+  expect(meta1).toEqual({
+    pagination: {
+      total: 2,
+      page: 1,
+      pageSize: 25,
+      pageCount: 1,
+    },
+  });
+
+  const { meta: meta2 } = await controller.execute({
+    page: 1,
+    perPage: 5,
+  });
+  expect(meta2).toEqual({
+    pagination: {
+      total: 2,
+      page: 1,
+      pageSize: 5,
+      pageCount: 1,
+    },
+  });
+
+  const { meta: meta3 } = await controller.execute({
+    page: 10,
+    perPage: 500,
+  });
+  expect(meta3).toEqual({
+    pagination: {
+      total: 2,
+      page: 10,
+      pageSize: 200,
+      pageCount: 1,
+    },
+  });
+});
+
 /**
  * Mock Action
  */
@@ -69,6 +123,6 @@ class {{CountEntityMockAction}} {
     if (dto === {}) {
       return 0;
     }
-    return 10;
+    return 2;
   }
 }
