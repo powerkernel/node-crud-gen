@@ -1,7 +1,6 @@
 import container from "../../../config/container";
 import IDENTIFIERS from "../../../config/identifiers";
 import {
-  {{CountEntityController}},
   {{CreateEntityController}},
   {{DeleteEntityController}},
   {{ListEntityController}},
@@ -12,16 +11,9 @@ import { {{ListEntityDto}} } from "../dtos";
 
 export default {
   Query: {
-    {{GqlQueryAllEntity}}: async (_parent: unknown, args: {{ListEntityDto}}) => {
+    {{GqlQueryEntities}}: async (_parent: unknown, args: {{ListEntityDto}}) => {
       const ctl = container.get<{{ListEntityController}}>(
         IDENTIFIERS.{{ListEntityController}}
-      );
-      return await ctl.execute(args);
-    },
-
-    {{GqlQueryAllEntityMeta}}: async (_parent: unknown, args: {{ListEntityDto}}) => {
-      const ctl = container.get<{{CountEntityController}}>(
-        IDENTIFIERS.{{CountEntityController}}
       );
       return await ctl.execute(args);
     },

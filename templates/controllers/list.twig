@@ -1,5 +1,6 @@
 /* npm imports */
 import { inject, injectable } from "inversify";
+import config from "config";
 
 /* local imports */
 import IDENTIFIERS from "../../../config/identifiers";
@@ -7,22 +8,51 @@ import { {{ListEntityDto}} } from "../dtos";
 import { {{Entity}} } from "../entities";
 
 /* type imports */
-import type { {{ListEntityAction}} } from "../actions";
+import type { {{ListEntityAction}}, {{CountEntityAction}} } from "../actions";
 
 /**
  * class {{ListEntityController}}
  */
 @injectable()
 class {{ListEntityController}} {
-  private action: {{ListEntityAction}};
+  private listAction: {{ListEntityAction}};
+  private countAction: {{CountEntityAction}};
 
-  constructor(@inject(IDENTIFIERS.{{ListEntityAction}}) action: {{ListEntityAction}}) {
-    this.action = action;
+  constructor(
+    @inject(IDENTIFIERS.{{ListEntityAction}}) listAction: {{ListEntityAction}},
+    @inject(IDENTIFIERS.{{CountEntityAction}}) countAction: {{CountEntityAction}}
+  ) {
+    this.listAction = listAction;
+    this.countAction = countAction;
   }
 
   async execute(dto: {{ListEntityDto}}) {
-    const dtos = await this.action.handle(dto);
-    return dtos.map((dto) => {{Entity}}.create(dto).jsonify());
+    const dtos = await this.listAction.handle(dto);
+    const pagination = await this.getPagination(dto);
+    return {
+      data: dtos.map((dto) => {{Entity}}.create(dto).jsonify()),
+      meta: {
+        pagination,
+      },
+    };
+  }
+
+  private async getPagination(dto: {{ListEntityDto}}) {
+    const pageSizeConf = config.get("pageSize") as {
+      default: number;
+      max: number;
+    };
+    const page = dto.page ?? 1;
+    const pageSizeTemp = dto.perPage ?? pageSizeConf.default;
+    const pageSize =
+      pageSizeTemp > pageSizeConf.max ? pageSizeConf.max : pageSizeTemp;
+    const total = await this.countAction.handle(dto);
+    return {
+      page: page,
+      pageCount: Math.ceil(total / pageSize),
+      pageSize: pageSize > pageSizeConf.max ? pageSizeConf.max : pageSize,
+      total: total,
+    };
   }
 }
 

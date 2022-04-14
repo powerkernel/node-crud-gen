@@ -16,7 +16,6 @@ import {
   {{ViewEntityAction}},
 } from "./../actions";
 import {
-  {{CountEntityController}},
   {{CreateEntityController}},
   {{DeleteEntityController}},
   {{ListEntityController}},
@@ -45,7 +44,6 @@ const bindControllers = (container: Container) => {
   container.bind<{{ViewEntityController}}>(IDENTIFIERS.{{ViewEntityController}}).to({{ViewEntityController}});
   container.bind<{{DeleteEntityController}}>(IDENTIFIERS.{{DeleteEntityController}}).to({{DeleteEntityController}});
   container.bind<{{UpdateEntityController}}>(IDENTIFIERS.{{UpdateEntityController}}).to({{UpdateEntityController}});
-  container.bind<{{CountEntityController}}>(IDENTIFIERS.{{CountEntityController}}).to({{CountEntityController}});
 };
 
 const bindActions = (container: Container) => {

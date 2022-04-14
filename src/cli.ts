@@ -174,17 +174,6 @@ const generateControllers = (names: Names) => {
   const twing = new TwingEnvironment(loader);
   const vars = generateTwigVars(names);
 
-  // count
-  twing.render('count.twig', vars).then((output) => {
-    fs.writeFileSync(`./src/domains/${names.entity.dir}/controllers/${names.controllers.count.file}.ts`, output);
-  });
-  twing.render('__tests__/count.twig', vars).then((output) => {
-    fs.writeFileSync(
-      `./src/domains/${names.entity.dir}/controllers/__tests__/${names.controllers.count.file}.test.ts`,
-      output
-    );
-  });
-
   // create
   twing.render('create.twig', vars).then((output) => {
     fs.writeFileSync(`./src/domains/${names.entity.dir}/controllers/${names.controllers.create.file}.ts`, output);

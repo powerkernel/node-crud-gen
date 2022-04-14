@@ -16,8 +16,7 @@ interface Names {
   graphql: {
     query: {
       entity: string;
-      allEntity: string;
-      allEntityMeta: string;
+      entities: string;
     };
     mutation: {
       create: string;
@@ -46,7 +45,6 @@ interface Names {
     update: FileClassMock;
   };
   controllers: {
-    count: FileClassMock;
     create: FileClassMock;
     delete: FileClassMock;
     list: FileClassMock;
@@ -107,8 +105,7 @@ const generateNames = (entity: string): Names => {
     graphql: {
       query: {
         entity: camelCaseName,
-        allEntity: `all${pascalCaseName}s`,
-        allEntityMeta: `_all${pascalCaseName}sMeta`,
+        entities: `${camelCaseName}s`,
       },
       mutation: {
         create: `create${pascalCaseName}`,
@@ -149,10 +146,6 @@ const generateNames = (entity: string): Names => {
       },
     },
     controllers: {
-      count: {
-        file: `count-${kebabCaseName}-controller`,
-        class: `Count${pascalCaseName}Controller`,
-      },
       create: {
         file: `create-${kebabCaseName}-controller`,
         class: `Create${pascalCaseName}Controller`,
@@ -262,8 +255,7 @@ const generateTwigVars = (names: Names) => {
   return {
     // graphql
     GqlQueryEntity: names.graphql.query.entity,
-    GqlQueryAllEntity: names.graphql.query.allEntity,
-    GqlQueryAllEntityMeta: names.graphql.query.allEntityMeta,
+    GqlQueryEntities: names.graphql.query.entities,
 
     GqlMutationUpdateEntity: names.graphql.mutation.update,
     GqlMutationDeleteEntity: names.graphql.mutation.delete,
@@ -295,14 +287,12 @@ const generateTwigVars = (names: Names) => {
     ViewEntityMockAction: names.actions.view.mock,
 
     // controllers
-    CountEntityController: names.controllers.count.class,
     CreateEntityController: names.controllers.create.class,
     DeleteEntityController: names.controllers.delete.class,
     ListEntityController: names.controllers.list.class,
     UpdateEntityController: names.controllers.update.class,
     ViewEntityController: names.controllers.view.class,
 
-    CountEntityControllerFile: names.controllers.count.file,
     CreateEntityControllerFile: names.controllers.create.file,
     DeleteEntityControllerFile: names.controllers.delete.file,
     ListEntityControllerFile: names.controllers.list.file,

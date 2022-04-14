@@ -2,45 +2,43 @@ import { gql } from "apollo-server-express";
 
 export default gql`
   extend type Query {
-    {{GqlQueryEntity}}(id: String!): {{Entity}}
+    {{GqlQueryEntity}}(id: String!): {{Entity}}EntityResponse
 
-    {{GqlQueryAllEntity}}(
+    {{GqlQueryEntities}}(
       page: Int
       perPage: Int
       sortField: String
       sortOrder: String
       filter: {{GqlInputEntityFilter}}
-    ): [{{Entity}}]
+    ): {{Entity}}EntityResponseCollection
 
-    {{GqlQueryAllEntityMeta}}(
-      page: Int
-      perPage: Int
-      sortField: String
-      sortOrder: String
-      filter: {{GqlInputEntityFilter}}
-    ): {{GqlTypeEntityMatadata}}
   }
 
   extend type Mutation {
-    {{GqlMutationCreateEntity}}(title: String!): {{Entity}}
-    {{GqlMutationUpdateEntity}}(id: ID, title: String): {{Entity}}
+    {{GqlMutationCreateEntity}}(title: String!): {{Entity}}EntityResponse
+    {{GqlMutationUpdateEntity}}(id: ID, title: String): {{Entity}}EntityResponse
     {{GqlMutationDeleteEntity}}(id: String!): Boolean
   }
 
-  type {{Entity}} {
+  type {{Entity}}Entity {
     id: ID
     title: String!
     createdAt: String!
     updatedAt: String!
   }
 
+  type {{Entity}}EntityResponse {
+    data: {{Entity}}Entity
+  }
+
+  type {{Entity}}EntityResponseCollection {
+    data: [{{Entity}}Entity]
+    meta: ResponseCollectionMeta
+  }
+
   input {{GqlInputEntityFilter}} {
     q: String
     id: ID
     title: String
-  }
-
-  type {{GqlTypeEntityMatadata}} {
-    count: Int
   }
 `;
