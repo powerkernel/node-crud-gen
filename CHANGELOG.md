@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.20](https://github.com/powerkernel/node-crud-gen/compare/v0.1.19...v0.1.20) (2022-04-14)
+
+
+### Features
+
+* add data/meta to graphql response ([96efbfb](https://github.com/powerkernel/node-crud-gen/commit/96efbfbba8706221720e65a75844ec1684888647))
+
 ### [0.1.19](https://github.com/powerkernel/node-crud-gen/compare/v0.1.18...v0.1.19) (2022-04-07)
 
 
