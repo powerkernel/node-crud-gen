@@ -1,7 +1,11 @@
+/* npm imports */
 import { injectable } from "inversify";
+
+/* local imports */
 import container from "../../../../config/container";
 import IDENTIFIERS from "../../../../config/identifiers";
 import { {{DeleteEntityController}} } from "..";
+import { {{EntityDto}} } from "../../dtos";
 
 it("should invoke the delete action", async () => {
   // start: mock
@@ -30,7 +34,7 @@ it("should invoke the delete action", async () => {
  */
 @injectable()
 class {{DeleteEntityMockAction}} {
-  async handle(id: string): Promise<boolean> {
+  async handle(id: string): Promise<{{EntityDto}} | null> {
     return {
       id: id,
       title: "The title",

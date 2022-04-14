@@ -1,31 +1,41 @@
 import { MongoDbClient } from "@powerkernel/mongodb-client";
+import { Binary } from "mongodb";
 
 import { {{DeleteEntityMongoRepo}} } from "../";
 
-it("should delete the document from the database", async () => {
-  const repo = new {{DeleteEntityMongoRepo}}();
-
+beforeAll(() => {
   // start: mock
   jest.spyOn(MongoDbClient, "db", "get").mockReturnValue({
     collection: () => {
       return {
-        findOneAndDelete: () => {
-          return {
-            value: {
-              _id: MongoDbClient.createUuid(
-                "f2901959-b087-4495-92a5-441d9c1efd36"
-              ),
-              title: "this is the title",
-              createdAt: "2022-01-31T10:14:37.535Z",
-              updatedAt: "2022-01-31T10:14:37.535Z",
-            },
-          };
+        findOneAndDelete: (filter: { _id: Binary }) => {
+          const id = MongoDbClient.stringifyUuid(
+            filter._id as unknown as Binary
+          );
+          if (id == "00000000-0000-0000-0000-000000000000") {
+            return {
+              value: null,
+            };
+          } else {
+            return {
+              value: {
+                _id: MongoDbClient.createUuid(id),
+                title: "this is the title",
+                createdAt: "2022-01-31T10:14:37.535Z",
+                updatedAt: "2022-01-31T10:14:37.535Z",
+              },
+            };
+          }
         },
       };
     },
   } as never);
   // end: mock
+});
 
+
+it("should delete the document from the database and return the deleted document", async () => {
+  const repo = new {{DeleteEntityMongoRepo}}();
   const id = "f2901959-b087-4495-92a5-441d9c1efd36";
   const result = await repo.remove(id);
   expect(result).toEqual({
@@ -34,4 +44,11 @@ it("should delete the document from the database", async () => {
     createdAt: "2022-01-31T10:14:37.535Z",
     updatedAt: "2022-01-31T10:14:37.535Z",
   });
+});
+
+it("should return null if the document is not found", async () => {
+  const repo = new {{DeleteEntityMongoRepo}}();
+  const id = "00000000-0000-0000-0000-000000000000";
+  const result = await repo.remove(id);
+  expect(result).toEqual(null);
 });

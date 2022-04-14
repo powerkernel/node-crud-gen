@@ -2,10 +2,9 @@ import { MongoDbClient } from "@powerkernel/mongodb-client";
 
 import { {{CreateEntityMongoRepo}} } from "../";
 
-it("should insert the DTO as the document into the database", async () => {
-  const repo = new {{CreateEntityMongoRepo}}();
 
-  // start: mock
+beforeAll(() => {
+    // start: mock
   jest.spyOn(MongoDbClient, "db", "get").mockReturnValue({
     collection: () => {
       return {
@@ -16,6 +15,11 @@ it("should insert the DTO as the document into the database", async () => {
     },
   } as never);
   // end: mock
+});
+
+
+it("should insert the DTO as the document into the database", async () => {
+  const repo = new {{CreateEntityMongoRepo}}();
 
   const dto = {
     id: "f2901959-b087-4495-92a5-441d9c1efd36",
