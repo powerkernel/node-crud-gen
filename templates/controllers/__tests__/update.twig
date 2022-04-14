@@ -15,11 +15,11 @@ it("should invoke the update action", async () => {
   const controller = container.get<{{UpdateEntityController}}>(
     IDENTIFIERS.{{UpdateEntityController}}
   );
-  const result = await controller.execute({
+  const { data } = await controller.execute({
     id: "f2901959-b087-4495-92a5-441d9c1efd36",
     title: "The new title",
   });
-  expect(result).toEqual(
+  expect(data).toEqual(
     expect.objectContaining({
       title: "The new title",
     })

@@ -15,10 +15,10 @@ it("should invoke the create action", async () => {
   const controller = container.get<{{CreateEntityController}}>(
     IDENTIFIERS.{{CreateEntityController}}
   );
-  const result = await controller.execute({
+  const { data } = await controller.execute({
     title: "The title",
   });
-  expect(result).toEqual(
+  expect(data).toEqual(
     expect.objectContaining({
       title: "The title",
     })

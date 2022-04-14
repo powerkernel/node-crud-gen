@@ -17,8 +17,8 @@ it("should invoke the view action", async () => {
   );
 
   const id = "f2901959-b087-4495-92a5-441d9c1efd36";
-  const result = await controller.execute(id);
-  expect(result).toEqual({
+  const { data } = await controller.execute(id);
+  expect(data).toEqual({
     id: id,
     title: "The title",
     createdAt: "2022-01-31T10:14:37.535Z",

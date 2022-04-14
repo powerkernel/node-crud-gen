@@ -16,8 +16,13 @@ it("should invoke the delete action", async () => {
   );
 
   const id = "f2901959-b087-4495-92a5-441d9c1efd36";
-  const result = await controller.execute(id);
-  expect(result).toEqual(true);
+  const { data } = await controller.execute(id);
+  expect(data).toEqual({
+      id: id,
+      title: "The title",
+      createdAt: "2022-01-31T10:14:37.535Z",
+      updatedAt: "2022-01-31T10:14:37.535Z",
+  });
 });
 
 /**
@@ -26,6 +31,11 @@ it("should invoke the delete action", async () => {
 @injectable()
 class {{DeleteEntityMockAction}} {
   async handle(id: string): Promise<boolean> {
-    return id !== "00000000-0000-0000-0000-000000000000";
+    return {
+      id: id,
+      title: "The title",
+      createdAt: "2022-01-31T10:14:37.535Z",
+      updatedAt: "2022-01-31T10:14:37.535Z",
+    };
   }
 }

@@ -9,9 +9,16 @@ it("should delete the document from the database", async () => {
   jest.spyOn(MongoDbClient, "db", "get").mockReturnValue({
     collection: () => {
       return {
-        deleteOne: () => {
+        findOneAndDelete: () => {
           return {
-            deletedCount: 1,
+            value: {
+              _id: MongoDbClient.createUuid(
+                "f2901959-b087-4495-92a5-441d9c1efd36"
+              ),
+              title: "this is the title",
+              createdAt: "2022-01-31T10:14:37.535Z",
+              updatedAt: "2022-01-31T10:14:37.535Z",
+            },
           };
         },
       };
@@ -21,5 +28,10 @@ it("should delete the document from the database", async () => {
 
   const id = "f2901959-b087-4495-92a5-441d9c1efd36";
   const result = await repo.remove(id);
-  expect(result).toEqual(true);
+  expect(result).toEqual({
+    id: id,
+    title: "this is the title",
+    createdAt: "2022-01-31T10:14:37.535Z",
+    updatedAt: "2022-01-31T10:14:37.535Z",
+  });
 });

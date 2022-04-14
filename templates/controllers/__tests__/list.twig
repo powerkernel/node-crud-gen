@@ -7,17 +7,21 @@ import { {{ListEntityDto}}, {{EntityDto}} } from "../../dtos";
 it("should invoke the list action", async () => {
   // start: mock
   container.unbind(IDENTIFIERS.{{ListEntityAction}});
+  container.unbind(IDENTIFIERS.{{CountEntityAction}});
   container
     .bind<{{ListEntityMockAction}}>(IDENTIFIERS.{{ListEntityAction}})
     .to({{ListEntityMockAction}});
+  container
+    .bind<{{CountEntityMockAction}}>(IDENTIFIERS.{{CountEntityAction}})
+    .to({{CountEntityMockAction}});  
   // end: mock
 
   const controller = container.get<{{ListEntityController}}>(
     IDENTIFIERS.{{ListEntityController}}
   );
 
-  const result = await controller.execute({});
-  expect(result).toEqual([
+  const { data } = await controller.execute({});
+  expect(data).toEqual([
     {
       id: "f2901959-b087-4495-92a5-441d9c1efd36",
       title: "title 2",
@@ -56,5 +60,15 @@ class {{ListEntityMockAction}} {
         updatedAt: "2022-01-31T10:14:37.535Z",
       },
     ];
+  }
+}
+
+@injectable()
+class {{CountEntityMockAction}} {
+  async handle(dto: {{ListEntityDto}}): Promise<number> {
+    if (dto === {}) {
+      return 0;
+    }
+    return 10;
   }
 }
