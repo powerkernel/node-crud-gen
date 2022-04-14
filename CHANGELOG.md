@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.21](https://github.com/powerkernel/node-crud-gen/compare/v0.1.20...v0.1.21) (2022-04-14)
+
+
+### Features
+
+* deleting returns the delete entity ([acb4cbc](https://github.com/powerkernel/node-crud-gen/commit/acb4cbc2e9d3cb0ca0c4f756d8f1fc6d03f90f51))
+
 ### [0.1.20](https://github.com/powerkernel/node-crud-gen/compare/v0.1.19...v0.1.20) (2022-04-14)
 
 
