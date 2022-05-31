@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.28](https://github.com/powerkernel/node-crud-gen/compare/v0.1.27...v0.1.28) (2022-05-31)
+
+
+### Others
+
+* config versionrc ([d97ed18](https://github.com/powerkernel/node-crud-gen/commit/d97ed18d31e37edff153dd695edab970b76b5a16))
+* **deps:** update dependency typescript to v4.7.2 ([#7](https://github.com/powerkernel/node-crud-gen/issues/7)) ([ef967e1](https://github.com/powerkernel/node-crud-gen/commit/ef967e1721eaeaef83120555431e931cf1ddb30f))
+* **deps:** update jest monorepo to v28 ([#6](https://github.com/powerkernel/node-crud-gen/issues/6)) ([c068158](https://github.com/powerkernel/node-crud-gen/commit/c0681585ede7659005c98d75e9c227887200e715))
+
 ### [0.1.27](https://github.com/powerkernel/node-crud-gen/compare/v0.1.26...v0.1.27) (2022-04-16)
 
 ### [0.1.26](https://github.com/powerkernel/node-crud-gen/compare/v0.1.25...v0.1.26) (2022-04-16)
