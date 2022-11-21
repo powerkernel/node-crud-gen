@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.29](https://github.com/powerkernel/node-crud-gen/compare/v0.1.28...v0.1.29) (2022-11-21)
+
+
+### Others
+
+* **deps:** update dependency jest to v28.1.1 ([#11](https://github.com/powerkernel/node-crud-gen/issues/11)) ([fd7c80b](https://github.com/powerkernel/node-crud-gen/commit/fd7c80bd699c58a5118984806b733f6a950c19db))
+* **deps:** update dependency jest to v28.1.2 ([#12](https://github.com/powerkernel/node-crud-gen/issues/12)) ([ebdaf9e](https://github.com/powerkernel/node-crud-gen/commit/ebdaf9e810eb9b43fda28e00101c73ca1050cebc))
+* **deps:** update dependency jest to v28.1.3 ([#13](https://github.com/powerkernel/node-crud-gen/issues/13)) ([6de0e96](https://github.com/powerkernel/node-crud-gen/commit/6de0e9681e6a79cfcd7bf90386c83399c8c0679d))
+* **deps:** update dependency ts-jest to v28.0.5 ([#9](https://github.com/powerkernel/node-crud-gen/issues/9)) ([0541963](https://github.com/powerkernel/node-crud-gen/commit/05419633447b79f0385b5e14213ad3259f9fd2ed))
+* **deps:** update dependency typescript to v4.7.4 ([#10](https://github.com/powerkernel/node-crud-gen/issues/10)) ([e49bae8](https://github.com/powerkernel/node-crud-gen/commit/e49bae85f510065628873b7f2b9e9a60aebbf343))
+* update renovate configuration ([d076e55](https://github.com/powerkernel/node-crud-gen/commit/d076e554ede16aee232de4d0025720752e5f7804))
+* updates deps ([a846a05](https://github.com/powerkernel/node-crud-gen/commit/a846a058fd9d7efa42a3215afc6280523ee42b2d))
+
 ### [0.1.28](https://github.com/powerkernel/node-crud-gen/compare/v0.1.27...v0.1.28) (2022-05-31)
 
 
