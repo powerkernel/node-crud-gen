@@ -23,7 +23,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "change-case": "4.1.2",
+    "change-case": "5.4.3",
     "twing": "5.1.2"
   },
   "devDependencies": {
